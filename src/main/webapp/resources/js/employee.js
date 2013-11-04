@@ -154,16 +154,16 @@ $(function () {
         template: _.template($("#showinfotemplate").html()),
       events: {
           "click .btn-success#change_status_btn": "info",
-          "click .btn-warning#refresh": "refresh",
-          "click .btn-danger#cancel": "cancel"
+          /*"click .btn-warning#refresh": "refresh",
+          "click .btn-danger#cancel": "cancel"*/
       },
-       cancel: function(e) {
+       /*cancel: function(e) {
            e.preventDefault();
            controller.navigate("", true);
        },
         refresh: function(e) {
             e.preventDefault();
-        },
+        },*/
         info: function(e) {
             e.preventDefault();
             
@@ -187,19 +187,7 @@ $(function () {
     });
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 	
-	/*
-	1-userName
-	2-accountNumber
-	3-amountMoney
-	4-status
-	5-list of last 5 transactions	---	Source account
-									Destination account
-									Date/time of the transaction
-									Amount of money transferred
-	Promote (new -> active)
-		Block (active -> blocked)
-			Unblock (blocked -> active
-	*/
+
 	
 	
 	
@@ -364,6 +352,12 @@ function closeDetailedInfo() {
 }
 
 
-
+$("#clickme-modal-buttonWHY").click(function(){
+    $("#createshowinfo222" ).dialog({
+		height: 590,
+		width: 960,
+      modal: true
+    });
+});
 
 

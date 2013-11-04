@@ -38,7 +38,7 @@
 	<div id="ThisPage">&nbsp;&nbsp;&nbsp;&nbsp;On this page you can see the list of all bank accounts</div>
 	
 	
-	<input type="button" value="test" id="clickme-modal-button" />	
+	<input type="button" value="test" id="clickme-modal-button" />
 	
 	
 	</div>
@@ -274,7 +274,18 @@
     <td><%=user.userName %></td>
 	<td><%=accountNumber %></td>
 	<td><%=status %></td>
-	<td><a href="" title="Full info on this account" id="info">Details</a></td>
+	<td><a href="" title="Full info on this account" id="info">Details</a>
+			<input type="button" value="test" id="clickme-modal-buttonWHY" />
+	</td>
+</script>
+<script>
+$("#clickme-modal-buttonWHY").click(function(){
+    $("#createshowinfo222" ).dialog({
+		height: 590,
+		width: 960,
+      modal: true
+    });
+});
 </script>
 
 
