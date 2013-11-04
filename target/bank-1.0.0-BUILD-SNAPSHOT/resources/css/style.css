@@ -1,0 +1,28 @@
+body {
+	font-family: Segoe UI, Helvetica, Arial, sans-serif;
+}
+
+legend {
+	font-size: 20px;
+}
+
+.span4 {
+	position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -130px;
+    width:260px;  
+	height:200px;
+}
+
+.span3 {
+	margin: 10px 0 10px 0;
+}
+
+.checkbox {
+	margin-top: 10px;
+}
+
+.btn {
+	margin: 10px auto auto auto;
+}

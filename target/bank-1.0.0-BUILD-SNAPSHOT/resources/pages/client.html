@@ -1,0 +1,152 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<title>Internet Banking System - Client's page</title>
+<meta name="description" content="Internet Banking System - Employee's page">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styleClient.css" type="text/css"/>
+    <link rel="stylesheet" href="css/toastr.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
+    
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <script type="text/javascript" src="js/backbone.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/toastr.min.js"></script>
+    <script type="text/javascript" src="js/client.js"></script>
+    
+    <script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+	
+</head>
+
+<body>
+<div id="mainDiv">
+
+<div class="navbar" id="tabs">
+    <div class="navbar-inner">
+        <span class="brand"><span id="ibs">Internet Banking System - Client's page</span></span>
+
+        <div id="userinfo">
+            <span id="userinfoSpan">Welcome,<span id="listprice"></span>&nbsp;
+            <a href="#" title="Log Out" id="buttonLogout"><img src="img/logout.png"/></a>&nbsp;&nbsp;&nbsp;</span>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+	<div>
+    <div id="OnThisPage">On this page you can see all your transactions.</div>
+	<div id="OnThisPageRight">ACCOUNT NUMBER : 2620199011234<br />AMOUNT AVAILABLE : EURO 249.74</div>
+	</div>
+	
+	<a class="btn" id="create" href="">Create new transaction</a>
+		
+	<div id="transListFrame">
+	<table class="table table-striped table-bordered" id="tableTransactions">
+			<thead>
+            <tr>
+                <td id="Source">Source account</td>
+                <td id="Destination">Destination account</td>
+                <td id="Date">Date of transaction</td>
+				<td id="Amount">Amount of money</td>
+            </tr>
+            </thead>
+	</table>
+	</div>
+		
+    <div class="footer">
+        <div id="pages">
+            Page <span id="pageIndex"></span> of <span id="totalPages"></span>
+        </div>
+        <div class="text-center">
+            <button class="btn" id="first">First</button>
+            <button class="btn" id="previous">Previous</button>
+            <button class="btn" id="next">Next</button>
+            <button class="btn" id="last">Last</button>
+        </div>
+    </div>
+
+	
+
+    <div id="foot">
+
+    </div>
+</div>
+
+                
+
+
+
+</div>	<!-- <div id="mainDiv"> -->
+
+
+<div class="modal hide" id="modal">
+    <div class="modal-header">
+        <h4>Warning</h4>
+    </div>
+    <div class="modal-body">
+        <p></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary">Yes</a>
+        <a href="#" class="btn" id="no">No</a>
+    </div>
+</div>
+
+
+<div id="template"></div>
+
+<script type="text/template" id="createNewTrTemplate">
+    <div class="container" id="createtrans">
+        <div class="row">
+            <div class="span2"></div>
+            <div class="span8">
+
+                <form id="formAmount" class="form-horizontal well">
+                    <!--legend><%= header %> User</legend-->
+					<legend id="pleaseEnter">Please enter the destination account number<br />and the amount of money you wish to transfer.</legend>
+
+					<!-- <div>This page is appointed for <%= message %> user for particular role</div> -->
+                    <div class="control-group" id="destination">
+                        <div>
+							<label class="control-label" for="destaccount">Send to :</label>
+						</div>
+                        <div class="controls">
+                            <input value="" class="validate[required,custom[integer],min[0]] text-input" type="text" id="destaccount" name="destaccount" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+							<label class="control-label" for="amount">Amount of money :</label>
+                        <div class="controls">
+                            <input class="validate[required,custom[number],min[00.01]] text-input" type="text" id="amount" name="amount" />
+                        </div>
+                    </div>
+
+						<a href="#" class="btn btn-success" id="confirmbtn">CREATE</a>
+						<a href="#" class="btn btn-danger" id="cancel">CANCEL</a>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</script>
+
+<script id="rowtrans" type="text/template">
+    <td><%=sourceAccount %></td>
+	<td><%=destinationAccount %></td>
+	<td><%=transactionDate %></td>
+	<td><%=amountMoney %></td>
+</script>
+
+   
+
+
+
+</body>
+
+
+</html>

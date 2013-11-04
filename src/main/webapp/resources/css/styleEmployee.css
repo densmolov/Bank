@@ -1,0 +1,80 @@
+body {
+	font-family: Segoe UI, Helvetica, Arial, sans-serif;
+}
+
+legend {
+	font-size: 20px;
+}
+
+.span4 {
+	position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -130px;
+    width:260px;  
+	height:200px;
+}
+
+.span3 {
+	margin: 10px 0 10px 0;
+}
+
+.checkbox {
+	margin-top: 10px;
+}
+
+.btn {
+	margin: 10px auto auto auto;
+}
+
+#mainDiv {
+	width: 60%;
+	margin: 20px auto 0 auto;
+}
+
+.navbar-inner {
+	position: relative;
+}
+
+#userinfo {
+	height: 50%;
+	margin: auto;
+	position: absolute;
+	top: 0; bottom: 0; right: 0;
+}
+
+#first,#previous,#next,#last {
+	width: 100px;
+}
+
+#tableAccounts thead {
+	font-size: 16px;
+	font-weight:300;
+	margin: 100px auto auto auto;
+}
+
+#notclientname {
+	width: 30%;
+}
+#clientname {
+	width: 30%;
+}
+
+#clientnamebtn {
+	width: 8%;
+	text-align:center;
+}
+
+#ibs {
+	color: #08c;
+}
+
+#accListFrame {
+	margin: 15px 0 0 0;
+}
+
+
+
+
+
+
