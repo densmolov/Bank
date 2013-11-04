@@ -50,7 +50,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public Integer getTrCount(String valueTrCount) {		// it is currentUser.getAccount().getAccountNumber();
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Transaction.class);
-		//String fieldTrCount = "sourceAccount";//rewrite
 		criteria.add( Restrictions.eq("sourceAccount", valueTrCount) );
 		return (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
 	}
@@ -69,21 +68,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 	
 	//	VALIDATION
-	/*public Account getAccountForFurtherValidation(String doesAccountExistString) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Account.class);
-		criteria.add(Restrictions.eq("accountNumber", doesAccountExistString));
-		@SuppressWarnings("unchecked")
-		List<Account> accounts = (List<Account>) criteria.list();
-		if(accounts!=null && accounts.size()!=0) {
-			System.out.println("Acc found!!!");
-			//session.close();
-			return accounts.get(0);
-		}
-		System.out.println("Nope. Nothings was found.");
-		session.close();
-		return null;
-	}*/
 	
 	@Override
 	public boolean doesAccountExist(String destAccValid) {
@@ -93,10 +77,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 		@SuppressWarnings("unchecked")
 		List<Account> accounts = (List<Account>) criteria.list();
 		if(accounts!=null && accounts.size()!=0) {
-			System.out.println("Acc found!!!");
+			System.out.println("              Account found!!!");
 			return true;
 		}
-		System.out.println("Acc NOT found!!!");
+		System.out.println("              Account NOT found!!!");
 		return false;
 	}
 
@@ -109,11 +93,11 @@ public class TransactionDAOImpl implements TransactionDAO {
 		List<Account> accounts = (List<Account>) criteria.list();
 		if(accounts!=null && accounts.size()!=0) {
 			if (accounts.get(0).getStatus() == Status.ACTIVE) {
-				System.out.println("It is ACTIVE!");
+				System.out.println("              It is ACTIVE!");
 				return true;
 			}
 		}
-		System.out.println("Nope. It is not ACTIVE.");
+		System.out.println("              Nope. It is not ACTIVE.");
 		return false;
 	}
 
@@ -126,12 +110,32 @@ public class TransactionDAOImpl implements TransactionDAO {
 		List<Account> accounts = (List<Account>) criteria.list();
 		if(accounts!=null && accounts.size()!=0) {
 			if (accounts.get(0).getAccountNumber().equals(areTheyTheSame)) {
-				System.out.println("THE ACCOUNTS' NUMBERS ARE THE SAME !!!");
+				System.out.println("              THE ACCOUNTS' NUMBERS ARE THE SAME !!!");
 				return false;
 			}
 		}
-		System.out.println("Bingo !");
+		System.out.println("              The accounts' numbers are different.");
 		return true;
+	}
+
+	@Override
+	public boolean isAmountPositive(double amountValid) {
+		if(amountValid > 0) {
+			System.out.println("              The sum is positive.");
+			return true;
+		}
+		System.out.println("              The sum is negative.");
+		return false;
+	}
+	
+	@Override
+	public boolean isAmountAvailable(double amountValid, double amountOnTheAcc) {
+		if(amountOnTheAcc >= amountValid) {
+			System.out.println("              The sum is sufficient for this transaction.");
+			return true;
+		}
+		System.out.println("              Not enough money!!!");
+		return false;
 	}
 
 }

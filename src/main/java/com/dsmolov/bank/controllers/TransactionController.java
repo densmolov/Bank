@@ -56,11 +56,13 @@ public class TransactionController {
 			User currentUser = getCurrentUser(model, principal);
 			Account accountDetected = currentUser.getAccount();
 			String areTheyTheSame = accountDetected.getAccountNumber();
+			double AmountOnTheAcc = accountDetected.getMoneyLeft();
 		double amountValid = bankTransaction.getAmountMoney();
 		if (transactionService.doesAccountExist(destAccValid) &&
 				transactionService.isAccountTheSame(destAccValid, areTheyTheSame) &&
-				transactionService.isAccountActive(destAccValid)
-				 ) {
+				transactionService.isAccountActive(destAccValid) &&
+				transactionService.isAmountPositive(amountValid) &&
+				transactionService.isAmountAvailable(amountValid, AmountOnTheAcc) ) {
 			return true;
 		} else {
 			return false;

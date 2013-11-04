@@ -52,4 +52,14 @@ public class TransactionServiceImpl implements TransactionService{
 		return transactionDAO.isAccountTheSame(destAccValid, areTheyTheSame);
 	}
 
+	@Transactional
+	public boolean isAmountPositive(double amountValid) {
+		return transactionDAO.isAmountPositive(amountValid);
+	}
+
+	@Transactional
+	public boolean isAmountAvailable(double amountValid, double amountOnTheAcc) {
+		return transactionDAO.isAmountAvailable(amountValid, amountOnTheAcc);
+	}
+
 }

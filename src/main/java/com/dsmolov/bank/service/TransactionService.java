@@ -21,5 +21,9 @@ public interface TransactionService {
 	public boolean isAccountActive(String destAccValid);
 
 	public boolean isAccountTheSame(String destAccValid, String areTheyTheSame);
+
+	public boolean isAmountPositive(double amountValid);
+
+	public boolean isAmountAvailable(double amountValid, double amountOnTheAcc);
 	
 }
