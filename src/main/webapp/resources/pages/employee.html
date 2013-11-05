@@ -7,15 +7,12 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/styleEmployee.css" type="text/css"/>
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css"/>
-    <link rel="stylesheet" href="css/jquery-ui.css" type="text/css"/>
-    
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/underscore.js"></script>
     <script type="text/javascript" src="js/backbone.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/toastr.min.js"></script>
     <script type="text/javascript" src="js/employee.js"></script>
-    <script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -34,13 +31,7 @@
 
 <div class="content">
 	<div>
-	
 	<div id="ThisPage">&nbsp;&nbsp;&nbsp;&nbsp;On this page you can see the list of all bank accounts</div>
-	
-	
-	<input type="button" value="test" id="clickme-modal-button" />
-	
-	
 	</div>
 	
 	<div id="accListFrame">
@@ -70,6 +61,8 @@
         </div>
     </div>
 
+	
+
     <div id="foot">
 
     </div>
@@ -93,18 +86,11 @@
 </div>
 
 
+<div id="template"></div>
 
-
-
-
-
-
-<!-- FULL ACCOUNT INFORMATION -->
-
-<div class="container" id="createshowinfo222" title="Detailed account information">
+<script type="text/template" id="showinfotemplate">
+    <div class="container" id="createshowinfo" title="Detailed account information">
 <form class="form-horizontal well">
-
-<!--legend><%= header %> User</legend-->
 	<div>
 		Status : <span id="paintItBlue">ACTIVE</span><br/>
 		Number : <span id="paintItBlue">2620199011234</span><br/>
@@ -168,136 +154,22 @@
 
 		<!--<a href="#" class="btn btn-primary" id="change_status_btn"><%= button %></a>-->
 		<a href="#" class="btn btn-success" id="change_status_btn">Change status</a>
-		<!-- <a href="#" class="btn btn-danger" id="cancel">Cancel</a> -->
+		<a href="#" class="btn btn-danger" id="cancel">Cancel</a>
 </div>
 
 </form>
 </div>
-
-
-
-
-
-<div id="template"></div>
-
-<script type="text/template" id="showinfotemplate">
-    <div class="container" id="createshowinfo">
-        <div class="row">
-            <div class="span2"></div>
-            <div class="span8">
-                <form class="form-horizontal well">
-
-                    <!--legend><%= header %> User</legend-->
-					<legend id="pleaseEnter">This page provides detailed account information.</legend>
-	<div>
-					Status : ACTIVE
-					</br>
-					Number : 2620199011234
-					</br>
-					Owner full name : John Silver				
-					</br>
-					Amount of money available : UAH 123.45
-					</br>
-	<div id="transListFrame">
-	<table class="table table-striped table-bordered" id="tableTransactions">
-			<thead>
-            <tr>
-                <td id="Source">Source account</td>
-                <td id="Destination">Destination account</td>
-                <td id="Date">Date of transaction</td>
-				<td id="Amount">Amount of money</td>
-            </tr>
-            </thead>
-			<tr>
-                <td>2620199011234</td>
-				<td>2620288026789</td>
-				<td>Wednesday, October 30, 2013 1:10:52 PM</td>
-				<td>1452.14</td>
-			</tr>
-			<tr>
-                <td>2620199011234</td>
-				<td>2620288026789</td>
-				<td>Wednesday, October 30, 2013 1:10:52 PM</td>
-				<td>1452.14</td>
-			</tr>
-			<tr>
-                <td>2620199011234</td>
-				<td>2620288026789</td>
-				<td>Wednesday, October 30, 2013 1:10:52 PM</td>
-				<td>1452.14</td>
-			</tr>
-			<tr>
-                <td>2620199011234</td>
-				<td>2620288026789</td>
-				<td>Wednesday, October 30, 2013 1:10:52 PM</td>
-				<td>1452.14</td>
-			</tr>
-			<tr>
-                <td>2620199011234</td>
-				<td>2620288026789</td>
-				<td>Wednesday, October 30, 2013 1:10:52 PM</td>
-				<td>1452.14</td>
-			</tr>
-	</table>
-		<div class="btn-group">
-  			<button type="button" class="btn btn-default">Promote</button>
-  			<button type="button" class="btn btn-default">Block</button>
-  			<button type="button" class="btn btn-default">Unblock</button>
-		</div>
-
-	</div>
-
-	Promote (new -> active)
-		Block (active -> blocked)
-			Unblock (blocked -> active)
-
-						<!--<a href="#" class="btn btn-primary" id="change_status_btn"><%= button %></a>-->
-						<a href="#" class="btn btn-success" id="change_status_btn">Change status</a>
-						<a href="#" class="btn btn-danger" id="cancel">Cancel</a>
-</div>
-
-                </form>
-            </div>
-
-        </div>
-    </div>
 </script>
-
-<!-- end FULL end ACCOUNT end INFORMATION end -->
-
-
-
-
-
 
 <script id="rowacc" type="text/template">
     <td><%=user.userName %></td>
 	<td><%=accountNumber %></td>
 	<td><%=status %></td>
-	<td><a href="" title="Full info on this account" id="info">Details</a>
-			<input type="button" value="test" id="clickme-modal-buttonWHY" />
-	</td>
-</script>
-<script>
-$("#clickme-modal-buttonWHY").click(function(){
-    $("#createshowinfo222" ).dialog({
-		height: 590,
-		width: 960,
-      modal: true
-    });
-});
+	<td><a href="" title="Full info on this account" id="info">Details</a></td><>
 </script>
 
 
-<script>
-$("#clickme-modal-button").click(function(){
-    $("#createshowinfo222" ).dialog({
-		height: 590,
-		width: 960,
-      modal: true
-    });
-});
-</script>
+
 
 </body>
 
