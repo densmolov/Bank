@@ -34,9 +34,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public List<Transaction> getTransactions(String value, int index) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Transaction.class);
-		//String field = "sourceAccount";
-		//criteria.add( Restrictions.eq(field, value) );	//value is currentUser.getAccount().getAccountNumber();
-				criteria.add( Restrictions.eq("sourceAccount", value) );
+		criteria.add( Restrictions.eq("sourceAccount", value) );
 		criteria.addOrder(Order.desc("transactionId") );
 		criteria.setFirstResult((index - 1) * 10);
 		criteria.setMaxResults(10);

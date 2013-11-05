@@ -391,7 +391,7 @@ function scrollDown() {
 
 //modals, errors, warnings
 
-/*function closeModal() {
+function closeModal() {
     $("#modal").fadeOut();
 }
 
@@ -407,7 +407,7 @@ function showModal(head, message, id) {
     $(".modal-header h4").html(header[head]);
     $(".modal-body p").html(messages[message]);
     $("#modal").fadeIn();
-}*/
+}
 
 
 function closeDetailedInfo() {

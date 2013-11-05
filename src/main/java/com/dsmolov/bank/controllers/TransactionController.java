@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dsmolov.bank.entities.Account;
 import com.dsmolov.bank.entities.Transaction;
-import com.dsmolov.bank.entities.User;
 import com.dsmolov.bank.service.TransactionService;
 
 @Controller
@@ -26,32 +24,30 @@ public class TransactionController {
 	@RequestMapping(value = "/client/transactions", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Transaction> list(@RequestParam int index, Model model, Principal principal) {
-		User currentUser = getCurrentUser(model, principal);
-		String value = currentUser.getAccount().getAccountNumber();
-		return transactionService.getTransactions(value, index);
+		/*User currentUser = getCurrentUser(model, principal);
+		String value = currentUser.getAccount().getAccountNumber();*/
+		return transactionService.getTransactions(index ,model, principal);
 	}
 	
-	public User getCurrentUser(Model model, Principal principal) {
+	/*public User getCurrentUser(Model model, Principal principal) {
 		String name = principal.getName();
 		model.addAttribute("userName", name);
 		User currentUser = transactionService.getUserByLogin(name);
 		return currentUser;
-	}
+	}*/
 						
 	@RequestMapping(value = "/client/create", method = RequestMethod.POST)
 	public String createTransaction(@RequestBody Transaction bankTransaction, Model model, Principal principal) {
-		User currentUser = getCurrentUser(model, principal);
-		Account accountDetected = currentUser.getAccount();
-		if (isTransactionValid(bankTransaction, model, principal)) {
-			transactionService.createTransaction(bankTransaction, accountDetected);
-			return "redirect:/client";
-		} else {
-			return "redirect:/client";
-		}
-
+		//User currentUser = getCurrentUser(model, principal);
+		//Account accountDetected = currentUser.getAccount();
+/*		if (isTransactionValid(bankTransaction, model, principal)) {
+			transactionService.createTransaction(bankTransaction, accountDetected);*/
+		transactionService.createTransaction(bankTransaction, model, principal);
+		return "redirect:/client";
+		//}
 	}
 	
-	public boolean isTransactionValid (Transaction bankTransaction, Model model, Principal principal) {
+	/*public boolean isTransactionValid (Transaction bankTransaction, Model model, Principal principal) {
 		String destAccValid = bankTransaction.getDestinationAccount();
 			User currentUser = getCurrentUser(model, principal);
 			Account accountDetected = currentUser.getAccount();
@@ -67,14 +63,14 @@ public class TransactionController {
 		} else {
 			return false;
 		}
-	}
+	}*/
 
 	@RequestMapping(value = "/client/getTrCount", method = RequestMethod.GET)
 	public @ResponseBody
 	Integer getTrCount(Model model, Principal principal) {
-		User currentUser = getCurrentUser(model, principal);
-		String valueTrCount = currentUser.getAccount().getAccountNumber();
-		return transactionService.getTrCount(valueTrCount);
+		//User currentUser = getCurrentUser(model, principal);
+		//String valueTrCount = currentUser.getAccount().getAccountNumber();
+		return transactionService.getTrCount(model, principal);
 	}
 	
 }
