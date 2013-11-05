@@ -6,9 +6,10 @@ import com.dsmolov.bank.entities.Account;
 
 public interface AccountService {
 	
-	//public Account getAccountByNumber(String accountNumber);
-	
 	public List<Account> getAllAccounts (int index);
      
 	public Integer getAccCount();
+
+	public Account getFullInfoByAccountNumber(String accountNumber);
+
 }

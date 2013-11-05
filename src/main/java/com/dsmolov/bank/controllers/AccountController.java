@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,12 +31,10 @@ public class AccountController {
 		return accountService.getAccCount();
 	}
 	
-				/*@RequestMapping(value = "/employee/info", method = RequestMethod.GET)
-				public @ResponseBody
-				Account showAccountInfo( ) {
-					String accountNumber = "123";
-					System.out.println("accountNumber = 123");
-					return accountService.getAccountByNumber(accountNumber);
-				}*/
+	@RequestMapping(value = "/employee/info/{accountNumber}", method = RequestMethod.GET)	//employee#info
+	public @ResponseBody
+	Account getFullInfoByAccountNumber(@PathVariable("accountNumber") String accountNumber) {
+		return accountService.getFullInfoByAccountNumber(accountNumber);
+	}
 
 }

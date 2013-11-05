@@ -102,7 +102,8 @@ $(function () {
     var Start = Backbone.View.extend({
         el: $(".content"),
         events: {
-            "click a#info": "info",
+            /*"click a#info": "info",*/
+            "click #info": "info",
             "click #next": "next",
             "click #previous": "previous",
             "click #first": "first",

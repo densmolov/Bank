@@ -14,11 +14,6 @@ public class AccountServiceImpl implements AccountService {
 	
 	 @Autowired
 	 private AccountDAO accountDAO;
-	
-	 /*@Transactional
-	 public Account getAccountByNumber(String accountNumber) {	
-		  return accountDAO.getAccountByNumber(accountNumber);
-	 }*/
 
 	@Transactional
 	public List<Account> getAllAccounts(int index) {
@@ -28,6 +23,11 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	public Integer getAccCount() {
 		return accountDAO.getAccCount();
+	}
+
+	@Transactional
+	public Account getFullInfoByAccountNumber(String accountNumber) {
+		return accountDAO.getFullInfoByAccountNumber(accountNumber);
 	}
 
 }
