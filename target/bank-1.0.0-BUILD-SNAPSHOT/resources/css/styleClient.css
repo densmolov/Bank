@@ -107,4 +107,11 @@ legend {
 }
 
 
-
+.container#createtrans {
+	margin-top: -240px;
+	margin-left: 300px;
+	position: absolute;
+}
+.container#createtrans form {
+    box-shadow: 0px 0px 10px #AAA;
+}

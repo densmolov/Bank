@@ -73,10 +73,6 @@ legend {
 	margin: 15px 0 0 0;
 }
 
-#createshowinfo222 {
-    display: none;
-    overflow: auto;
-}
 #paintItBlue {
 	color: #08c;
 }
@@ -88,7 +84,6 @@ legend {
 .container#createshowinfo {
 	margin-top: -240px;
 	margin-left: 300px;
-	width: 100%;
 	position: absolute;
 }
 .container#createshowinfo form {
