@@ -85,6 +85,7 @@ legend {
 	margin-top: -240px;
 	margin-left: 300px;
 	position: absolute;
+	bottom: 120px;
 }
 .container#createshowinfo form {
     box-shadow: 0px 0px 10px #AAA;
