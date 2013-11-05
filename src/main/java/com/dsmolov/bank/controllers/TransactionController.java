@@ -24,52 +24,18 @@ public class TransactionController {
 	@RequestMapping(value = "/client/transactions", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Transaction> list(@RequestParam int index, Model model, Principal principal) {
-		/*User currentUser = getCurrentUser(model, principal);
-		String value = currentUser.getAccount().getAccountNumber();*/
 		return transactionService.getTransactions(index ,model, principal);
 	}
-	
-	/*public User getCurrentUser(Model model, Principal principal) {
-		String name = principal.getName();
-		model.addAttribute("userName", name);
-		User currentUser = transactionService.getUserByLogin(name);
-		return currentUser;
-	}*/
 						
 	@RequestMapping(value = "/client/create", method = RequestMethod.POST)
 	public String createTransaction(@RequestBody Transaction bankTransaction, Model model, Principal principal) {
-		//User currentUser = getCurrentUser(model, principal);
-		//Account accountDetected = currentUser.getAccount();
-/*		if (isTransactionValid(bankTransaction, model, principal)) {
-			transactionService.createTransaction(bankTransaction, accountDetected);*/
 		transactionService.createTransaction(bankTransaction, model, principal);
 		return "redirect:/client";
-		//}
 	}
-	
-	/*public boolean isTransactionValid (Transaction bankTransaction, Model model, Principal principal) {
-		String destAccValid = bankTransaction.getDestinationAccount();
-			User currentUser = getCurrentUser(model, principal);
-			Account accountDetected = currentUser.getAccount();
-			String areTheyTheSame = accountDetected.getAccountNumber();
-			double AmountOnTheAcc = accountDetected.getMoneyLeft();
-		double amountValid = bankTransaction.getAmountMoney();
-		if (transactionService.doesAccountExist(destAccValid) &&
-				transactionService.isAccountTheSame(destAccValid, areTheyTheSame) &&
-				transactionService.isAccountActive(destAccValid) &&
-				transactionService.isAmountPositive(amountValid) &&
-				transactionService.isAmountAvailable(amountValid, AmountOnTheAcc) ) {
-			return true;
-		} else {
-			return false;
-		}
-	}*/
 
 	@RequestMapping(value = "/client/getTrCount", method = RequestMethod.GET)
 	public @ResponseBody
 	Integer getTrCount(Model model, Principal principal) {
-		//User currentUser = getCurrentUser(model, principal);
-		//String valueTrCount = currentUser.getAccount().getAccountNumber();
 		return transactionService.getTrCount(model, principal);
 	}
 	
