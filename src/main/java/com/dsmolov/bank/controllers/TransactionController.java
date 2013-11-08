@@ -28,11 +28,6 @@ public class TransactionController {
 		return transactionService.getTransactions(index, model, principal);
 	}
 	
-	/*@RequestMapping(value = "/client", method = RequestMethod.GET)
-	public String client(Model model, Principal principal) {
-		return "forward:/pages/client.html";
-	}*/
-	
 	public User getCurrentUser(Model model, Principal principal) {
 		return transactionService.getCurrentUser(model, principal);
 	}
@@ -53,9 +48,17 @@ public class TransactionController {
 	public @ResponseBody
 	String getName(Model model, Principal principal) {
 		String stringName = getCurrentUser(model, principal).getUserName();
-		System.out.println("		Here it issssss " + stringName);
-		//model.addAttribute(stringName);//?????????????????????????????????????????
 		return stringName;
-	}	
+	}
+	@RequestMapping(value = "/client/getSum", method = RequestMethod.GET)
+	public @ResponseBody
+	Double getSum(Model model, Principal principal) {
+		return getCurrentUser(model, principal).getAccount().getMoneyLeft();
+	}
+	@RequestMapping(value = "/client/getNumberOfAcc", method = RequestMethod.GET)
+	public @ResponseBody
+	String getNumberOfAcc(Model model, Principal principal) {
+		return getCurrentUser(model, principal).getAccount().getAccountNumber();
+	}
 	
 }

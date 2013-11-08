@@ -288,20 +288,53 @@ function updatePaging() {
     }
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
-    $("#transListFrame #tableTransactions tbody").html("");//////////
+    $("#transListFrame #tableTransactions tbody").html("");
+    updatePaging1();
+    updatePaging2();
+    updatePaging3();
 }
 
-function updatePaging2() {
+function updatePaging1() {
     $.ajax({
             type: "GET",
             url: "client/getName",
             async: false,
-            success:function(looserName) {
-            	userName = looserName;
+            success:function(string, double, string2) {
+            	userNumber = string2;
+            	userSum = double;
+            	userName = string;
                 console.log(userName);
+                console.log(userSum);
+                console.log(userNumber);
             }
         }).responseText;
-    $(#formSpan").html(userName);
+    $("#formSpan").html(userName);
+    $("#formSpan2").html(userSum);
+    $("#formSpan3").html(userNumber);
+}
+function updatePaging2() {
+    $.ajax({
+            type: "GET",
+            url: "client/getSum",
+            async: false,
+            success:function(double) {
+            	userSum = double;
+                console.log(userSum);
+            }
+        }).responseText;
+    $("#formSpan2").html(userSum);
+}
+function updatePaging3() {
+    $.ajax({
+            type: "GET",
+            url: "client/getNumberOfAcc",
+            async: false,
+            success:function(string) {
+            	userNumber = string;
+                console.log(userNumber);
+            }
+        }).responseText;
+    $("#formSpan3").html(userNumber);
 }
 
 function scrollDown() {

@@ -72,8 +72,7 @@ var TransList = Backbone.Collection.extend({
 
 /*        THE BEGINNING OF GREAT FUNCTION        */
 $(function () {
-    updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-    updatePaging2();
+    updatePaging();
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
     
@@ -84,8 +83,7 @@ $(function () {
        },
         start: function() {
           closeModal();
-          closeTransEditor();                //write here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          
+          closeTransEditor();          
         },
         create: function() {
             closeTransEditor();
@@ -180,12 +178,8 @@ $(function () {
                console.log(bankTransaction);
                bankTransaction.save();
                toastr.success("Transaction was successfully created!") ;
-               updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-               updatePaging2();
                buttonClick();
                controller.navigate("", true);
-               updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-               updatePaging2();
             }
         },
         render: function(model) {
@@ -240,8 +234,7 @@ $(function () {
 function buttonClick() {
     bankTransactions = new TransList();
     transView = new TransView();
-    updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-    updatePaging2();
+    updatePaging();
     Views.allTransView = new AllTransView();
     setTimeout(scrollDown, 100);
 }
@@ -288,20 +281,47 @@ function updatePaging() {
     }
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
-    $("#transListFrame #tableTransactions tbody").html("");//////////
+    $("#transListFrame #tableTransactions tbody").html("");
+    updatePaging1();
+    updatePaging2();
+    updatePaging3();
 }
 
-function updatePaging2() {
+function updatePaging1() {
     $.ajax({
             type: "GET",
             url: "client/getName",
             async: false,
-            success:function(looserName) {
-            	userName = looserName;
+            success:function(string) {
+            	userName = string;
                 console.log(userName);
             }
         }).responseText;
     $("#formSpan").html(userName);
+}
+function updatePaging2() {
+    $.ajax({
+            type: "GET",
+            url: "client/getSum",
+            async: false,
+            success:function(double) {
+            	userSum = double;
+                console.log(userSum);
+            }
+        }).responseText;
+    $("#formSpan2").html(userSum);
+}
+function updatePaging3() {
+    $.ajax({
+            type: "GET",
+            url: "client/getNumberOfAcc",
+            async: false,
+            success:function(string) {
+            	userNumber = string;
+                console.log(userNumber);
+            }
+        }).responseText;
+    $("#formSpan3").html(userNumber);
 }
 
 function scrollDown() {

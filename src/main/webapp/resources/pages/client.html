@@ -29,7 +29,7 @@
         <span class="brand"><span id="ibs">Internet Banking System - Client's page</span></span>
 
         <div id="userinfo">
-            <span id="userinfoSpan">Welcome,<span id="listprice"></span>&nbsp;
+            <span id="userinfoSpan">Welcome,&nbsp;<span id="formSpan"></span>&nbsp;
             <a href="#" title="Log Out" id="buttonLogout"><img src="img/logout.png"/></a>&nbsp;&nbsp;&nbsp;</span>
         </div>
     </div>
@@ -37,13 +37,16 @@
 
 <div class="content">
 	<div>
-    <div id="OnThisPage">On this page you can see all your transactions.</div>
-	<div id="OnThisPageRight">ACCOUNT NUMBER : 2620199011234<br />AMOUNT AVAILABLE : EURO 249.74</div>
+    	<div id="OnThisPage">On this page you can see all your transactions.
+    	</div>
+			<div id="OnThisPageRight">ACCOUNT NUMBER : <span id="formSpan3"></span>
+				<br />AMOUNT AVAILABLE : EURO
+				<span id="formSpan2"></span>
+			</div>
 	</div>
 	
 	<a class="btn" id="create" href="">Create new transaction</a>
-	
-				<div>Welcome, <span id="formSpan"></span>! </div>
+
 		
 	<div id="transListFrame">
 	<table class="table table-striped table-bordered" id="tableTransactions">
@@ -141,11 +144,6 @@
 	<td><%=transactionDate %></td>
 	<td><%=amountMoney %></td>
 </script>
-
-<script type="text/template" id="nameTemplate">
-    <span><%= userName %></span>
-</script>   
-
 
 
 </body>
