@@ -3,6 +3,7 @@ var bankTransactions;
 var AllTransView;
 var TransView;
 
+
 var BankTransaction = Backbone.Model.extend({
 
 
@@ -74,6 +75,7 @@ $(function () {
     updatePaging();
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
+    
     var Controller = Backbone.Router.extend({
        routes: {
            "": "start",
@@ -81,7 +83,8 @@ $(function () {
        },
         start: function() {
           closeModal();
-          closeTransEditor();
+          closeTransEditor();		//write here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          
         },
         create: function() {
             closeTransEditor();
@@ -150,7 +153,7 @@ $(function () {
             return this;
         }
     });
-	
+    
     
     var TransEditor = Backbone.View.extend({
       el: $("#template"),
@@ -161,6 +164,7 @@ $(function () {
       },
        cancel: function(e) {
            e.preventDefault();
+           toastr.warning("Stopped creating a transaction") ;
            controller.navigate("", true);
        },
         confirmNewTr: function(e) {
@@ -239,39 +243,7 @@ function buttonClick() {
 }
 
 
-/*function updatePaging() {
-    $.ajax({
-            type: "GET",
-            url: "client/getTrCount",
-            async: false,
-            success:function(count) {
-                totalCount = count;
-                console.log(totalCount);
-            }
-        }
-    ).responseText;
-    totalPages = Math.ceil(totalCount/paging);
-    console.log(totalPages,totalCount, paging);
-    $("#previous").attr("disabled", false);
-    $("#next").attr("disabled", false);
-    $("#first").attr("disabled", false);
-    $("#last").attr("disabled", false);
-    if(index===1) {
-        $("#previous").attr("disabled" ,true);
-        $("#first").attr("disabled", true);
-    }
-    if(index===totalPages) {
-        $("#next").attr("disabled", true);
-        $("#last").attr("disabled", true);
-    }
-    if(totalPages===1) {
-        $("#first").attr("disabled" ,true);
-        $("#last").attr("disabled" ,true);
-    }
-    $("#pageIndex").html(index);
-    $("#totalPages").html(totalPages);
-    $("#transListFrame #tableTransactions tbody").html("");
-}*/
+
 function updatePaging() {
     $.ajax({
             type: "GET",
@@ -312,7 +284,7 @@ function updatePaging() {
     }
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
-    $("#transListFrame #tableTransactions tbody").html("");
+    $("#transListFrame #tableTransactions tbody").html("");//////////
 }
 
 

@@ -45,9 +45,9 @@ public class UserController {
 		return "forward:/pages/employee.html";
 	}
 
-	@RequestMapping(value = "/client", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/client", method = RequestMethod.GET)
 	public String client(Model model, Principal principal) {
 		return "forward:/pages/client.html";
-	}
+	}*/
 
 }

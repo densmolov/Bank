@@ -28,21 +28,15 @@ var Account = Backbone.Model.extend({
 });
 
 
-var creationModel =  {
-    header: "",
-    button: "",
-    message: ""
-};
+					var creationModel =  {
+					    header: "",
+					    button: "",
+					    message: ""
+					};
 var header = [
     "Warning",
-    "Error"
 ];
-var accErrors = [
-	"Destination account doesn't exist !",							//1
-	"Destination account is not active !",							//2
-    "Please enter the sum of money you want to transfer !",			//3
-    "The sum of this transfer exceeds the sum on your account !"	//4
-];
+
 var messages = [
     "Are you sure you want to log out from the application?",
 ];
@@ -51,7 +45,6 @@ var totalCount=0;
 var totalPages;
 var index = 1;
 var paging = 10;
-								var search=false;/////////////////////////////////////////////////////////////
 
 var AccList = Backbone.Collection.extend({
     baseUrl: 'employee/accounts',
@@ -72,17 +65,19 @@ $(function () {
     updatePaging();
     Backbone.emulateJSON = false;
     accounts = new AccList();
+    //    			nameView : new NameView(),
+    
+    
     var Controller = Backbone.Router.extend({
        routes: {
-           "": "start",
-           "": "start",
-           "info:id": "info"
+           "": 'start',
+           "info/:id": 'info'
        },
         start: function() {
           closeModal();
           closeDetailedInfo();
         },
-        info: function() {
+        info: function(id) {
             closeDetailedInfo();
             if(Views.detailedInfo!=null) {	//????????????????????
                 creationModel = {
@@ -91,18 +86,19 @@ $(function () {
                     message: "creating new"
                 };
             Views.detailedInfo.render(creationModel);
+            			this.accounts.focusOnAccount(id);
             }
         }
     });
     
     var controller = new Controller();
     
+    //Backbone.history.start({pushState:true});
     Backbone.history.start();
     
     var Start = Backbone.View.extend({
         el: $(".content"),
         events: {
-            /*"click a#info": "info",*/
             "click #info": "info",
             "click #next": "next",
             "click #previous": "previous",
@@ -111,7 +107,7 @@ $(function () {
         },
         info: function(e) {
             e.preventDefault();
-            controller.navigate("info", true);
+            controller.navigate("info/:id", true);
         },
         next: function(e) {
             e.preventDefault();
@@ -149,24 +145,22 @@ $(function () {
             $(this.el).html(element);
             return this;
         }
-    });	
+    });
+
 	
 	/*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
       el: $("#template"),
         template: _.template($("#showinfotemplate").html()),
-      events: {
+        events: {
           "click .btn-success#change_status_btn": "info",
-          "click .btn-warning#refresh": "refresh",
           "click .btn-danger#cancel": "cancel"
       },
        cancel: function(e) {
            e.preventDefault();
+           toastr.warning("Closing with no changes") ;
            controller.navigate("", true);
        },
-        refresh: function(e) {
-            e.preventDefault();
-        },
         info: function(e) {
             e.preventDefault();
             
@@ -176,11 +170,7 @@ $(function () {
                     });
                console.log(bankTransaction);
                bankTransaction.save();*/
-            /*sourceAccount
-            destinationAccount
-            transactionDate
-            amountMoney*/
-               //toastr.success("Smth is happenning right now...") ;
+               toastr.success("Smth is happenning right now...") ;
                buttonClick();
                controller.navigate("", true);
         },
@@ -189,56 +179,8 @@ $(function () {
         }
     });
     /*     end DETAILED ACCOUNT INFORMATION ends     */
-	
-	/*
-	1-userName
-	2-accountNumber
-	3-amountMoney
-	4-status
-	5-list of last 5 transactions	---	Source account
-									Destination account
-									Date/time of the transaction
-									Amount of money transferred
-	Promote (new -> active)
-		Block (active -> blocked)
-			Unblock (blocked -> active
-	*/
-	
-	
-	
-	/*var AccEditor = Backbone.View.extend({
-      el: $("#template"),
-        template: _.template($("#showinfotemplate").html()),
-      events: {
-          "click .btn-danger#cancel": "cancel",
-          "click .btn-warning#refresh": "refresh",
-          "click .btn-success#change_status_btn": "info"
-      },
-       cancel: function(e) {
-           e.preventDefault();
-           controller.navigate("", true);
-       },
-        refresh: function(e) {
-            e.preventDefault();
-        },
-        info: function(e) {
-            e.preventDefault();
-            if(validate()) {
-               var account = new Account({
-            	   	destinationAccount:$('#destaccount').val(),
-            	   	amountMoney:$('#amount').val()
-                    });
-               console.log(account);
-               account.save();
-               //toastr.success("Transaction was successfully added!") ;
-               buttonClick();
-               controller.navigate("", true);
-            }
-        },
-        render: function(model) {
-            $(this.el).html(this.template(model));
-        }
-    });*/
+
+
 	
     AllAccView = Backbone.View.extend({
         el : $('#accListFrame'),
@@ -285,6 +227,7 @@ $(function () {
 function buttonClick() {
     accounts = new AccList();
     accView = new AccView();
+    		//nameView = new NameView();
     updatePaging();
     Views.allAccView = new AllAccView();
     setTimeout(scrollDown, 100);
@@ -330,59 +273,9 @@ function updatePaging() {
     }
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
-    $("#accListFrame #tableAccounts tbody").html("");
+    $("#accListFrame #tableAccounts tbody").html("");///////////
 }
 
-    /*var pager = new Imtech.Pager();
-    $(document).ready(function() {
-        pager.paragraphsPerPage = 5; // set amount elements per page
-        pager.pagingContainer = $('#content'); // set of main container
-        pager.paragraphs = $('div.z', pager.pagingContainer); // set of required containers
-        pager.showPage(1);
-    });
-
-    this.paragraphsPerPage = 3;
-    this.currentPage = 1;
-    this.pagingControlsContainer = '#pagingControls';
-    this.pagingContainerPath = '#content';
-
-    this.numPages = function() {
-        var numPages = 0;
-        if (this.paragraphs != null && this.paragraphsPerPage != null) {
-            numPages = Math.ceil(this.paragraphs.length / this.paragraphsPerPage);
-        }
-
-        return numPages;
-    };
-
-    this.showPage = function(page) {
-        this.currentPage = page;
-        var html = '';
-
-        this.paragraphs.slice((page-1) * this.paragraphsPerPage,
-            ((page-1)*this.paragraphsPerPage) + this.paragraphsPerPage).each(function() {
-            html += '<div>' + $(this).html() + '</div>';
-        });
-
-        $(this.pagingContainerPath).html(html);
-
-        renderControls(this.pagingControlsContainer, this.currentPage, this.numPages());
-    };
-
-    var renderControls = function(container, currentPage, numPages) {
-        var pagingControls = 'Page: <ul>';
-        for (var i = 1; i <= numPages; i++) {
-            if (i != currentPage) {
-                pagingControls += '<li><a href="#" onclick="pager.showPage(' + i + '); return false;">' + i + '</a></li>';
-            } else {
-                pagingControls += '<li>' + i + '</li>';
-            }
-        }
-
-        pagingControls += '</ul>';
-
-        $(container).html(pagingControls);
-    };*/
 
 
 function scrollDown() {

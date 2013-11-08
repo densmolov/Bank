@@ -3,6 +3,11 @@ var bankTransactions;
 var AllTransView;
 var TransView;
 
+var MyView;
+/*var Klient = Backbone.Model.extend({
+    //defaults: {userName: 'SomeMan'}
+});*/
+
 var BankTransaction = Backbone.Model.extend({
 
 
@@ -67,6 +72,13 @@ var TransList = Backbone.Collection.extend({
         });
     }
 });
+var Klient = Backbone.Model.extend({
+	//baseUrl: 'client/transactions',
+	urlRoot:'client/transactions',
+	initialize: function() {
+        _.bind(this);
+    },
+});
 
 
 /*	THE BEGINNING OF GREAT FUNCTION	*/
@@ -74,6 +86,7 @@ $(function () {
     updatePaging();
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
+    
     var Controller = Backbone.Router.extend({
        routes: {
            "": "start",
@@ -81,7 +94,11 @@ $(function () {
        },
         start: function() {
           closeModal();
-          closeTransEditor();
+          closeTransEditor();		//write here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          
+          var someKlient = new Klient({userName:'Jack Sparrow'});
+          var app = new MyView(/*{model: someKlient}*/);
+          app.render();
         },
         create: function() {
             closeTransEditor();
@@ -150,6 +167,30 @@ $(function () {
             return this;
         }
     });
+    
+    MyView = Backbone.View.extend({
+        tagName: 'span',
+        template: _.template($("#nameTemplate").html()),
+        initialize: function(){
+        	model: someKlient;
+            //_.bind(this.render, this);
+        },
+        render: function() {
+            var element = this.template(this.model.toJSON());
+            console.log(this.model.toJSON());
+            $(this.el).html(element);
+            return this;
+        }
+    });
+    
+    /*MyView = Backbone.View.extend({
+        el: "#formSpan",
+        render: function() {
+            var html = _.template($('#nameTemplate').html(), this.model.toJSON());
+            this.$el.html(html);
+            app.fetch();
+        }
+    });*/
 	
     
     var TransEditor = Backbone.View.extend({
