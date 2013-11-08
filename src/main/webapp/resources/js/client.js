@@ -296,12 +296,12 @@ function updatePaging2() {
             type: "GET",
             url: "client/getName",
             async: false,
-            success:function(userName) {
+            success:function(looserName) {
+            	userName = looserName;
                 console.log(userName);
             }
-        }
-    ).responseText;
-    $("#formSpan").html("");
+        }).responseText;
+    $("#formSpan").html(userName);
 }
 
 function scrollDown() {

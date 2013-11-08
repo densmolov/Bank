@@ -296,15 +296,12 @@ function updatePaging2() {
             type: "GET",
             url: "client/getName",
             async: false,
-            success:function(hisName) {
-                totalCount = count;
-                console.log(hisName);
+            success:function(looserName) {
+            	userName = looserName;
+                console.log(userName);
             }
-        }
-    ).responseText;
-    totalPages = Math.ceil(totalCount/paging);
-    console.log(totalPages,totalCount, paging);
-    $("#formSpan").html("");
+        }).responseText;
+    $(#formSpan").html(userName);
 }
 
 function scrollDown() {
