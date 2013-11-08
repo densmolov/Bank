@@ -38,10 +38,10 @@ var header = [
     "Error"
 ];
 var transErrors = [
-	"Destination account doesn't exist !",							//1
-	"Destination account is not active !",							//2
-    "Please enter the sum of money you want to transfer !",			//3
-    "The sum of this transfer exceeds the sum on your account !"	//4
+        "Destination account doesn't exist !",                                                        //1
+        "Destination account is not active !",                                                        //2
+    "Please enter the sum of money you want to transfer !",                        //3
+    "The sum of this transfer exceeds the sum on your account !"        //4
 ];
 var messages = [
     "Are you sure you want to log out from the application?",
@@ -70,9 +70,10 @@ var TransList = Backbone.Collection.extend({
 });
 
 
-/*	THE BEGINNING OF GREAT FUNCTION	*/
+/*        THE BEGINNING OF GREAT FUNCTION        */
 $(function () {
-    updatePaging();
+    updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
+    updatePaging2();
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
     
@@ -83,7 +84,7 @@ $(function () {
        },
         start: function() {
           closeModal();
-          closeTransEditor();		//write here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          closeTransEditor();                //write here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           
         },
         create: function() {
@@ -139,7 +140,7 @@ $(function () {
     });
     
     var start = new Start();
-	
+        
     TransView = Backbone.View.extend({
         tagName: 'tr',
         template: _.template($("#rowtrans").html()),
@@ -170,19 +171,21 @@ $(function () {
         confirmNewTr: function(e) {
             e.preventDefault();
             if (myValidation()) {
-            	var myDate = new Date;
-            	var bankTransaction = new BankTransaction({
-            	   	destinationAccount:$('#destaccount').val(),
-            	   	amountMoney:$('#amount').val(),
-            	   	transactionDate:myDate.toLocaleString()
+                    var myDate = new Date;
+                    var bankTransaction = new BankTransaction({
+                               destinationAccount:$('#destaccount').val(),
+                               amountMoney:$('#amount').val(),
+                               transactionDate:myDate.toLocaleString()
                });
                console.log(bankTransaction);
                bankTransaction.save();
                toastr.success("Transaction was successfully created!") ;
-               updatePaging();
+               updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
+               updatePaging2();
                buttonClick();
                controller.navigate("", true);
-               updatePaging();
+               updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
+               updatePaging2();
             }
         },
         render: function(model) {
@@ -191,7 +194,7 @@ $(function () {
     });
 
 
-	AllTransView = Backbone.View.extend({
+        AllTransView = Backbone.View.extend({
         el : $('#transListFrame'),
         initialize : function() {
             _.bindAll(this, 'addOne', 'addAll', 'render');
@@ -209,13 +212,13 @@ $(function () {
             bankTransactions.each(this.addOne);
         }
     });
-	
-	
+        
+        
     Views = {
         transEditor: new TransEditor(),
         allTransView: new AllTransView()
     };
-	
+        
     // handlers for elements which are not in .content
     $("#buttonLogout").click(function (e) {
         e.preventDefault();
@@ -231,13 +234,14 @@ $(function () {
     });
 
 });
-/*	THE END OF THE GREAT FUNCTION	*/
+/*        THE END OF THE GREAT FUNCTION        */
 
 
 function buttonClick() {
     bankTransactions = new TransList();
     transView = new TransView();
-    updatePaging();
+    updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
+    updatePaging2();
     Views.allTransView = new AllTransView();
     setTimeout(scrollDown, 100);
 }
@@ -262,8 +266,8 @@ function updatePaging() {
     $("#first").attr("disabled", false);
     $("#last").attr("disabled", false);
     if(totalPages===0) {
-    	$("#previous").attr("disabled", true);
-    	$("#next").attr("disabled", true);
+            $("#previous").attr("disabled", true);
+            $("#next").attr("disabled", true);
         $("#first").attr("disabled", true);
         $("#last").attr("disabled", true);
         totalPages = "NONE";
@@ -272,7 +276,7 @@ function updatePaging() {
         $("#first").attr("disabled", true);
         $("#last").attr("disabled", true);
         $("#previous").attr("disabled", true);
-    	$("#next").attr("disabled", true);
+            $("#next").attr("disabled", true);
     }
     if(index===1) {
         $("#previous").attr("disabled", true);
@@ -287,6 +291,18 @@ function updatePaging() {
     $("#transListFrame #tableTransactions tbody").html("");//////////
 }
 
+function updatePaging2() {
+    $.ajax({
+            type: "GET",
+            url: "client/getName",
+            async: false,
+            success:function(userName) {
+                console.log(userName);
+            }
+        }
+    ).responseText;
+    $("#formSpan").html("");
+}
 
 function scrollDown() {
     $('html, body').animate({scrollTop: $("#foot").offset().top}, 1);
@@ -328,25 +344,12 @@ function closeTransEditor() {
 
 
 
-//			VALIDATION
+//                        VALIDATION
 
 function myValidation()
 {
     if ($('#formAmount').validationEngine('validate'))   
     { 
-    	return true;
+            return true;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

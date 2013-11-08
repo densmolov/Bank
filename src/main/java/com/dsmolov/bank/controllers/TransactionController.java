@@ -25,14 +25,14 @@ public class TransactionController {
 	@RequestMapping(value = "/client/transactions", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Transaction> list(@RequestParam int index, Model model, Principal principal) {
-		System.out.println("Here it issssss " + model.toString());
-		return transactionService.getTransactions(index ,model, principal);
+		return transactionService.getTransactions(index, model, principal);
 	}
 	
-	@RequestMapping(value = "/client", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/client", method = RequestMethod.GET)
 	public String client(Model model, Principal principal) {
 		return "forward:/pages/client.html";
-	}
+	}*/
+	
 	public User getCurrentUser(Model model, Principal principal) {
 		return transactionService.getCurrentUser(model, principal);
 	}
@@ -48,5 +48,13 @@ public class TransactionController {
 	Integer getTrCount(Model model, Principal principal) {
 		return transactionService.getTrCount(model, principal);
 	}
+	
+	@RequestMapping(value = "/client/getName", method = RequestMethod.GET)
+	public @ResponseBody
+	String getName(Model model, Principal principal) {
+		String stringName = getCurrentUser(model, principal).getUserName();
+		System.out.println("		Here it issssss " + stringName);
+		return stringName;
+	}	
 	
 }
