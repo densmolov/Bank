@@ -28,7 +28,7 @@ var BankTransaction = Backbone.Model.extend({
 });
 
 
-var creationModel =  {
+var creationModel = {
     header: "",
     button: "",
     message: ""
@@ -38,10 +38,10 @@ var header = [
     "Error"
 ];
 var transErrors = [
-        "Destination account doesn't exist !",                                                        //1
-        "Destination account is not active !",                                                        //2
-    "Please enter the sum of money you want to transfer !",                        //3
-    "The sum of this transfer exceeds the sum on your account !"        //4
+        "Destination account doesn't exist !", //1
+        "Destination account is not active !", //2
+    "Please enter the sum of money you want to transfer !", //3
+    "The sum of this transfer exceeds the sum on your account !" //4
 ];
 var messages = [
     "Are you sure you want to log out from the application?",
@@ -70,7 +70,7 @@ var TransList = Backbone.Collection.extend({
 });
 
 
-/*        THE BEGINNING OF GREAT FUNCTION        */
+/* THE BEGINNING OF GREAT FUNCTION */
 $(function () {
     updatePaging();
     Backbone.emulateJSON = false;
@@ -83,7 +83,7 @@ $(function () {
        },
         start: function() {
           closeModal();
-          closeTransEditor();          
+          closeTransEditor();
         },
         create: function() {
             closeTransEditor();
@@ -228,7 +228,7 @@ $(function () {
     });
 
 });
-/*        THE END OF THE GREAT FUNCTION        */
+/* THE END OF THE GREAT FUNCTION */
 
 
 function buttonClick() {
@@ -293,7 +293,7 @@ function updatePaging1() {
             url: "client/getName",
             async: false,
             success:function(string) {
-            	userName = string;
+                    userName = string;
                 console.log(userName);
             }
         }).responseText;
@@ -305,7 +305,7 @@ function updatePaging2() {
             url: "client/getSum",
             async: false,
             success:function(double) {
-            	userSum = double;
+                    userSum = double;
                 console.log(userSum);
             }
         }).responseText;
@@ -317,7 +317,7 @@ function updatePaging3() {
             url: "client/getNumberOfAcc",
             async: false,
             success:function(string) {
-            	userNumber = string;
+                    userNumber = string;
                 console.log(userNumber);
             }
         }).responseText;
@@ -364,12 +364,12 @@ function closeTransEditor() {
 
 
 
-//                        VALIDATION
+// VALIDATION
 
 function myValidation()
 {
-    if ($('#formAmount').validationEngine('validate'))   
-    { 
+    if ($('#formAmount').validationEngine('validate'))
+    {
             return true;
     }
 }

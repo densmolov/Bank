@@ -38,10 +38,10 @@ var header = [
     "Error"
 ];
 var transErrors = [
-        "Destination account doesn't exist !",                                                        //1
-        "Destination account is not active !",                                                        //2
-    "Please enter the sum of money you want to transfer !",                        //3
-    "The sum of this transfer exceeds the sum on your account !"        //4
+	"Destination account doesn't exist !",	//1
+	"Sorry! Your account is not active.",	//2
+	"You are trying to transfer money to your account !",	//3
+    "The sum of this transfer exceeds the sum on your account !"	//4
 ];
 var messages = [
     "Are you sure you want to log out from the application?",
@@ -72,8 +72,7 @@ var TransList = Backbone.Collection.extend({
 
 /*        THE BEGINNING OF GREAT FUNCTION        */
 $(function () {
-    updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-    updatePaging2();
+    updatePaging();
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
     
@@ -84,8 +83,7 @@ $(function () {
        },
         start: function() {
           closeModal();
-          closeTransEditor();                //write here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          
+          closeTransEditor();          
         },
         create: function() {
             closeTransEditor();
@@ -156,42 +154,52 @@ $(function () {
     });
     
     
-    var TransEditor = Backbone.View.extend({
-      el: $("#template"),
-        template: _.template($("#createNewTrTemplate").html()),
-      events: {
-          "click .btn-success#confirmbtn": "confirmNewTr",
-          "click .btn-danger#cancel": "cancel"
-      },
-       cancel: function(e) {
-           e.preventDefault();
-           toastr.warning("Stopped creating a transaction") ;
-           controller.navigate("", true);
-       },
-        confirmNewTr: function(e) {
-            e.preventDefault();
-            if (myValidation()) {
-                    var myDate = new Date;
-                    var bankTransaction = new BankTransaction({
-                               destinationAccount:$('#destaccount').val(),
-                               amountMoney:$('#amount').val(),
-                               transactionDate:myDate.toLocaleString()
-               });
-               console.log(bankTransaction);
-               bankTransaction.save();
-               toastr.success("Transaction was successfully created!") ;
-               updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-               updatePaging2();
-               buttonClick();
-               controller.navigate("", true);
-               updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-               updatePaging2();
-            }
-        },
-        render: function(model) {
-            $(this.el).html(this.template(model));
-        }
-    });
+	var TransEditor = Backbone.View.extend({
+		el: $("#template"),
+		template: _.template($("#createNewTrTemplate").html()),
+	events: {
+		"click .btn-success#confirmbtn": "confirmNewTr",
+		"click .btn-danger#cancel": "cancel"
+	},
+	cancel: function(e) {
+		e.preventDefault();
+		toastr.warning("Stopped creating a transaction") ;
+		controller.navigate("", true);
+	},
+	//confirmNewTr: function(e) {
+	confirmNewTr: function(validCode) {
+		int code = validCode;
+		//e.preventDefault();
+	if (myValidation()) {
+		if (code == 2) {
+			toastr.error("Destination account doesn't exist !") ;
+		} else if (code == 3) {
+			toastr.error("Sorry! Your account is not active.") ;
+		} else if (code == 4) {
+			toastr.error("You are trying to transfer money to your account !") ;
+		} else if (code == 5) {
+			toastr.error("The sum of this transfer exceeds the sum on your account !") ;
+		} else if (code == 6) {
+			toastr.error("You are trying to enter negative amount of money.") ;
+		} else if (code == 1) {
+			var myDate = new Date;
+			var bankTransaction = new BankTransaction({
+				destinationAccount:$('#destaccount').val(),
+				amountMoney:$('#amount').val(),
+				transactionDate:myDate.toLocaleString(),
+			});
+			console.log(bankTransaction);
+			bankTransaction.save();
+			toastr.success("Transaction was successfully created!") ;
+			buttonClick();
+			controller.navigate("", true);
+			};
+		};		/*if (myValidation()) */
+	},			/*confirmNewTr: function(validCode) */
+	render: function(model) {
+		$(this.el).html(this.template(model));
+	}
+	});
 
 
         AllTransView = Backbone.View.extend({
@@ -240,8 +248,7 @@ $(function () {
 function buttonClick() {
     bankTransactions = new TransList();
     transView = new TransView();
-    updatePaging();//////////////////////////////////////////////////////////////////////////////////////////////////////
-    updatePaging2();
+    updatePaging();
     Views.allTransView = new AllTransView();
     setTimeout(scrollDown, 100);
 }
@@ -299,18 +306,12 @@ function updatePaging1() {
             type: "GET",
             url: "client/getName",
             async: false,
-            success:function(string, double, string2) {
-            	userNumber = string2;
-            	userSum = double;
+            success:function(string) {
             	userName = string;
                 console.log(userName);
-                console.log(userSum);
-                console.log(userNumber);
             }
         }).responseText;
     $("#formSpan").html(userName);
-    $("#formSpan2").html(userSum);
-    $("#formSpan3").html(userNumber);
 }
 function updatePaging2() {
     $.ajax({
