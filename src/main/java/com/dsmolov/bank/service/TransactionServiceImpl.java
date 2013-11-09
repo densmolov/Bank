@@ -25,7 +25,7 @@ public class TransactionServiceImpl implements TransactionService{
                 Account accountDetected = getCurrentUser(model, principal).getAccount();
                 if (isTransactionValid(bankTransaction, model, principal)) {
                         transactionDAO.createTransaction(bankTransaction, accountDetected);
-                }                
+                }
         }
         @Transactional
         public boolean isTransactionValid (Transaction bankTransaction, Model model, Principal principal) {

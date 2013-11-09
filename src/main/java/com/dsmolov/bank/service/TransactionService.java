@@ -9,13 +9,13 @@ import com.dsmolov.bank.entities.Transaction;
 import com.dsmolov.bank.entities.User;
 
 public interface TransactionService {
-	
-	public void createTransaction(Transaction bankTransaction, Model model,	Principal principal);
-	
-	public List<Transaction> getTransactions(int index, Model model, Principal principal);
+        
+        public void createTransaction(Transaction bankTransaction, Model model,        Principal principal);
+        
+        public List<Transaction> getTransactions(int index, Model model, Principal principal);
 
-	public Integer getTrCount(Model model, Principal principal);
+        public Integer getTrCount(Model model, Principal principal);
 
-	public User getCurrentUser(Model model, Principal principal);
-	
+        public User getCurrentUser(Model model, Principal principal);
+        
 }

@@ -18,47 +18,47 @@ import com.dsmolov.bank.service.TransactionService;
 
 @Controller
 public class TransactionController {
-	
-	@Autowired
-	private TransactionService transactionService;
+        
+        @Autowired
+        private TransactionService transactionService;
 
-	@RequestMapping(value = "/client/transactions", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Transaction> list(@RequestParam int index, Model model, Principal principal) {
-		return transactionService.getTransactions(index, model, principal);
-	}
-	
-	public User getCurrentUser(Model model, Principal principal) {
-		return transactionService.getCurrentUser(model, principal);
-	}
-						
-	@RequestMapping(value = "/client/create", method = RequestMethod.POST)
-	public String createTransaction(@RequestBody Transaction bankTransaction, Model model, Principal principal) {
-		transactionService.createTransaction(bankTransaction, model, principal);
-		return "redirect:/client";
-	}
+        @RequestMapping(value = "/client/transactions", method = RequestMethod.GET)
+        public @ResponseBody
+        List<Transaction> list(@RequestParam int index, Model model, Principal principal) {
+                return transactionService.getTransactions(index, model, principal);
+        }
+        
+        public User getCurrentUser(Model model, Principal principal) {
+                return transactionService.getCurrentUser(model, principal);
+        }
+                                                
+        @RequestMapping(value = "/client/create", method = RequestMethod.POST)
+        public String createTransaction(@RequestBody Transaction bankTransaction, Model model, Principal principal) {
+                transactionService.createTransaction(bankTransaction, model, principal);
+                return "redirect:/client";
+        }
 
-	@RequestMapping(value = "/client/getTrCount", method = RequestMethod.GET)
-	public @ResponseBody
-	Integer getTrCount(Model model, Principal principal) {
-		return transactionService.getTrCount(model, principal);
-	}
-	
-	@RequestMapping(value = "/client/getName", method = RequestMethod.GET)
-	public @ResponseBody
-	String getName(Model model, Principal principal) {
-		String stringName = getCurrentUser(model, principal).getUserName();
-		return stringName;
-	}
-	@RequestMapping(value = "/client/getSum", method = RequestMethod.GET)
-	public @ResponseBody
-	Double getSum(Model model, Principal principal) {
-		return getCurrentUser(model, principal).getAccount().getMoneyLeft();
-	}
-	@RequestMapping(value = "/client/getNumberOfAcc", method = RequestMethod.GET)
-	public @ResponseBody
-	String getNumberOfAcc(Model model, Principal principal) {
-		return getCurrentUser(model, principal).getAccount().getAccountNumber();
-	}
-	
+        @RequestMapping(value = "/client/getTrCount", method = RequestMethod.GET)
+        public @ResponseBody
+        Integer getTrCount(Model model, Principal principal) {
+                return transactionService.getTrCount(model, principal);
+        }
+        
+        @RequestMapping(value = "/client/getName", method = RequestMethod.GET)
+        public @ResponseBody
+        String getName(Model model, Principal principal) {
+                String stringName = getCurrentUser(model, principal).getUserName();
+                return stringName;
+        }
+        @RequestMapping(value = "/client/getSum", method = RequestMethod.GET)
+        public @ResponseBody
+        Double getSum(Model model, Principal principal) {
+                return getCurrentUser(model, principal).getAccount().getMoneyLeft();
+        }
+        @RequestMapping(value = "/client/getNumberOfAcc", method = RequestMethod.GET)
+        public @ResponseBody
+        String getNumberOfAcc(Model model, Principal principal) {
+                return getCurrentUser(model, principal).getAccount().getAccountNumber();
+        }
+        
 }
