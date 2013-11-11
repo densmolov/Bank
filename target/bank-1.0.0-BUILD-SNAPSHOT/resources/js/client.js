@@ -75,6 +75,8 @@ $(function () {
     updatePaging();
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
+    updateName();
+    updateNumberOfAcc();
     
     var Controller = Backbone.Router.extend({
        routes: {
@@ -282,47 +284,46 @@ function updatePaging() {
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
     $("#transListFrame #tableTransactions tbody").html("");
-    updatePaging1();
-    updatePaging2();
-    updatePaging3();
+    updateSum();
 }
 
-function updatePaging1() {
+function updateName() {
     $.ajax({
             type: "GET",
             url: "client/getName",
             async: false,
             success:function(string) {
                     userName = string;
-                console.log(userName);
+                console.log('userName is' + userName);
             }
         }).responseText;
     $("#formSpan").html(userName);
 }
-function updatePaging2() {
+function updateSum() {
     $.ajax({
             type: "GET",
             url: "client/getSum",
             async: false,
             success:function(double) {
                     userSum = double;
-                console.log(userSum);
+                console.log('userSum is' + userSum);
             }
         }).responseText;
     $("#formSpan2").html(userSum);
 }
-function updatePaging3() {
+function updateNumberOfAcc() {
     $.ajax({
             type: "GET",
             url: "client/getNumberOfAcc",
             async: false,
             success:function(string) {
                     userNumber = string;
-                console.log(userNumber);
+                console.log('userNumber is' + userNumber);
             }
         }).responseText;
     $("#formSpan3").html(userNumber);
 }
+
 
 function scrollDown() {
     $('html, body').animate({scrollTop: $("#foot").offset().top}, 1);

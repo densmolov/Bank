@@ -72,6 +72,10 @@
             <button class="btn" id="last">Last</button>
         </div>
     </div>
+    
+    
+    
+    <div id="userinfoSpan2">Welcome,&nbsp;<span id="formSpan12"></span></div>
 
 	
 
@@ -139,12 +143,16 @@
 </script>
 
 <script id="rowtrans" type="text/template">
-    <td><%=sourceAccount %></td>
+	<td><%=userName %></td>
+    <!--td><%=sourceAccount %></td-->
 	<td><%=destinationAccount %></td>
 	<td><%=transactionDate %></td>
 	<td><%=amountMoney %></td>
 </script>
 
+<script id="rowclient" type="text/template">
+	<span><%=userName %></span>
+</script>
 
 </body>
 
