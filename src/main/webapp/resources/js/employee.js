@@ -59,6 +59,16 @@ var AccList = Backbone.Collection.extend({
     }
 });
 
+		/*var User = Backbone.Model.extend({
+		    url: function(){return 'api/user/id/' + this.id;}
+		});
+		var Users = Backbone.Collection.extend({
+		    model: User,
+		    url: function(){return 'api/users';},
+		    initialize: function() {
+		    }
+		});*/
+
 
 /*	THE BEGINNING OF GREAT FUNCTION	*/
 $(function () {

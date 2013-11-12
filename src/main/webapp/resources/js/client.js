@@ -181,6 +181,7 @@ $(function () {
                console.log(bankTransaction);
                bankTransaction.save();
                toastr.success("Transaction was successfully created!") ;
+               updatePaging();
                buttonClick();
                controller.navigate("", true);
             }
