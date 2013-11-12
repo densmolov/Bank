@@ -27,11 +27,6 @@ public class Account implements Serializable {
 	@JsonManagedReference("user-account")
 	@OneToOne(mappedBy="account")
 	private User user;
-	
-	/*@JsonManagedReference("account-transaction")
-	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<Transaction> transactions = new ArrayList<Transaction>();*/
-	
 
 	public Account() {	}
 	
@@ -84,12 +79,5 @@ public class Account implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	/*public List<Transaction> getTransactions() {
-		return transactions;
-	}
-	public void setTransactions(List<Transaction> transactions) {
-		this.transactions = transactions;
-	}*/
 
 }

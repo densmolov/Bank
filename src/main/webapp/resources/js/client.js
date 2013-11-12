@@ -3,6 +3,10 @@ var bankTransactions;
 var AllTransView;
 var TransView;
 
+/*************/
+			var ClientView;
+			var AllClientView;
+/*************/
 
 var BankTransaction = Backbone.Model.extend({
 
@@ -76,8 +80,11 @@ $(function () {
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
     
-    updateNumberOfAcc();
-    updateName();
+    /*updateNumberOfAcc();
+    updateName();*/
+    /*var clientView = new ClientView();
+    clientView.render();*/
+
     
     var Controller = Backbone.Router.extend({
        routes: {
@@ -155,6 +162,22 @@ $(function () {
             return this;
         }
     });
+    /*********************/
+    ClientView = Backbone.View.extend({
+        tagName: 'span',
+        el: '#formSpan',
+        template: _.template($("#rowclient").html()),
+        initialize: function(){
+            _.bind(this.render, this);
+        },
+        render: function() {
+            var element = this.template(this.model.toJSON());
+            console.log(this.model.toJSON());
+            $(this.el).html(element);
+            return this;
+        }
+    });
+    /***********************/
     
     
     var TransEditor = Backbone.View.extend({
@@ -192,7 +215,7 @@ $(function () {
     });
 
 
-        AllTransView = Backbone.View.extend({
+    AllTransView = Backbone.View.extend({
         el : $('#transListFrame'),
         initialize : function() {
             _.bindAll(this, 'addOne', 'addAll', 'render');
@@ -210,11 +233,35 @@ $(function () {
             bankTransactions.each(this.addOne);
         }
     });
+    AllClientView = Backbone.View.extend({
+        el : $('#navybar'),
+        initialize : function() {
+            _.bindAll(this, 'addOne', 'addAll', 'render');
+            bankTransactions.bind('reset', this.addAll);
+            bankTransactions.bind('add', this.addOne);
+            bankTransactions.fetch();
+        },
+        addOne : function(bankTransaction) {
+            var view = new ClientView({
+                model : bankTransaction
+            });
+            this.$('#userinfo').append(view.render().el);
+        },
+        addAll : function() {
+            bankTransactions.each(this.addOne);
+        }
+    });
+
+
         
         
     Views = {
         transEditor: new TransEditor(),
-        allTransView: new AllTransView()
+        allTransView: new AllTransView(),
+        /*********/
+        allClientView: new AllClientView()
+        //clientView: new ClientView()
+        /***************/
     };
         
     // handlers for elements which are not in .content
@@ -240,6 +287,10 @@ function buttonClick() {
     transView = new TransView();
     updatePaging();
     Views.allTransView = new AllTransView();
+    /**************/
+	clientView = new ClientView();
+    Views.allClientView = new AllClientView();
+    /**********/
     setTimeout(scrollDown, 100);
 }
 
@@ -286,10 +337,10 @@ function updatePaging() {
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
     $("#transListFrame #tableTransactions tbody").html("");
-    updateSum();
+    //updateSum();
 }
 
-function updateName() {
+/*function updateName() {
     $.ajax({
             type: "GET",
             url: "client/getName",
@@ -324,7 +375,7 @@ function updateNumberOfAcc() {
             }
         }).responseText;
     $("#formSpan3").html(userNumber);
-}
+}*/
 
 
 function scrollDown() {
@@ -376,3 +427,10 @@ function myValidation()
             return true;
     }
 }
+
+
+
+
+
+
+

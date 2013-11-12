@@ -38,14 +38,29 @@ legend {
 
 #ibs {
 	color: #08c;
+	width: 50%;
 }
 
 #userinfo {
-	height: 50%;
-	margin: auto;
+	height: 100%;
+	width: 40%;
+	/*margin: auto 40px auto auto;*/
 	position: absolute;
-	top: 0; bottom: 0; right: 0;
+	top: 0;
+	bottom: 0;
+	right: 40px;
 }
+
+#crazyA {
+	/* position: absolute; */
+	width: 10%;
+	float: right;
+}
+
+/* #buttonLogout {
+	position: absolute;
+	margin-right: auto;
+} */
 
 #first,#previous,#next,#last {
 	width: 100px;
@@ -71,8 +86,6 @@ legend {
 	margin-left: 15px;
 }
 
-
-
 #transListFrame {
 	margin: 15px 0 0 0;
 	height: 440px;
@@ -86,16 +99,16 @@ legend {
 }
 
 #Source {
-	width: 25%;
+	width: 24%;
 }
 #Destination {
-	width: 25%;
+	width: 24%;
 }
 #Date {
 	width: 35%;
 }
 #Amount {
-	width: 15%;
+	width: 17%;
 }
 
 #pleaseEnter {

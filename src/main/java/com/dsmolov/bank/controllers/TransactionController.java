@@ -44,7 +44,13 @@ public class TransactionController {
                 return transactionService.getTrCount(model, principal);
         }
         
-        @RequestMapping(value = "/client/getName", method = RequestMethod.GET)
+        @RequestMapping(value = "/client/getUser", method = RequestMethod.GET)
+        public @ResponseBody
+        User getUser(Model model, Principal principal) {
+                return getCurrentUser(model, principal);
+        }
+        @RequestMapping(value = "/client/getName", method = RequestMethod.GET)	// it's better to return an object - currentUser
+        //and then convert it to JSON to parse on the client-side
         public @ResponseBody
         String getName(Model model, Principal principal) {
                 String stringName = getCurrentUser(model, principal).getUserName();

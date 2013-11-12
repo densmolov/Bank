@@ -50,4 +50,5 @@ public class UserController {
 		return "forward:/pages/client.html";
 	}
 
+
 }

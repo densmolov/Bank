@@ -30,7 +30,8 @@ public class TransactionDAOImpl implements TransactionDAO {
                 sessionFactory.getCurrentSession().save(bankTransaction);
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         public List<Transaction> getTransactions(String value, int index) {
                 Session session = sessionFactory.getCurrentSession();
                 Criteria criteria = session.createCriteria(Transaction.class);
@@ -38,8 +39,12 @@ public class TransactionDAOImpl implements TransactionDAO {
                 criteria.addOrder(Order.desc("transactionId") );
                 criteria.setFirstResult((index - 1) * 10);
                 criteria.setMaxResults(10);
-                @SuppressWarnings("unchecked")
                 List<Transaction> trs = (List<Transaction>) criteria.list();
+                if (trs!=null && trs.size()!=0) {
+                	return trs;
+                } else {
+                	System.out.println("            Zero Tolerance");
+                }
                 return trs;
         }
 

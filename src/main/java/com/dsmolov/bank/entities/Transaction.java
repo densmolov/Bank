@@ -25,11 +25,6 @@ public class Transaction implements Serializable {
 	private String transactionDate;
 	private Double amountMoney;
 
-	/*@JsonBackReference("account-transaction")
-	@ManyToOne(cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "acc_id", insertable = false, updatable = false)
-	private Account account;*/
 	@ManyToOne
 	@JoinColumn(name = "acc_id")
 	private Account account;
