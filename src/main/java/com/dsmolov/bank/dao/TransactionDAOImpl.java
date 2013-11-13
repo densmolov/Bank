@@ -30,20 +30,21 @@ public class TransactionDAOImpl implements TransactionDAO {
                 sessionFactory.getCurrentSession().save(bankTransaction);
         }
 
-        @SuppressWarnings("unchecked")
 		@Override
-        public List<Transaction> getTransactions(String value, int index) {
+		public List<Transaction> getTransactions(String value, int index) {
+			//public List<Transaction> getTransactions(String value, int index) {
                 Session session = sessionFactory.getCurrentSession();
                 Criteria criteria = session.createCriteria(Transaction.class);
                 criteria.add( Restrictions.eq("sourceAccount", value) );
                 criteria.addOrder(Order.desc("transactionId") );
                 criteria.setFirstResult((index - 1) * 10);
                 criteria.setMaxResults(10);
-                List<Transaction> trs = (List<Transaction>) criteria.list();
+                @SuppressWarnings("unchecked")
+				List<Transaction> trs = (List<Transaction>) criteria.list();
                 if (trs!=null && trs.size()!=0) {
                 	return trs;
                 } else {
-                	System.out.println("            Zero Tolerance");
+                	System.out.println("    Creating substitute...");
                 }
                 return trs;
         }
@@ -60,8 +61,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         @Override
         public User getUserByLogin(String login) {
                 Session session = sessionFactory.getCurrentSession();
-                Criteria criteria = session.createCriteria(User.class).add(
-                                                                        Restrictions.eq("login", login));
+                Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("login", login));
                 @SuppressWarnings("unchecked")
                 List<User> users = (List<User>) criteria.list();
                 if(users!=null && users.size()!=0) {

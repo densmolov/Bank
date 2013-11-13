@@ -34,33 +34,34 @@ legend {
 
 .navbar-inner {
 	position: relative;
+	height: 40px;
 }
 
 #ibs {
 	color: #08c;
 	width: 50%;
+	height: 100%;
 }
 
 #userinfo {
 	height: 100%;
-	width: 40%;
-	/*margin: auto 40px auto auto;*/
+	width: 30%;
 	position: absolute;
+	margin-top: 9px;
 	top: 0;
 	bottom: 0;
 	right: 40px;
 }
 
 #crazyA {
-	/* position: absolute; */
-	width: 10%;
+	position: relative;
+	width: 22px;
 	float: right;
+	margin-top: 7px;
+	margin-right: -7px;
+	height: 100%;
 }
 
-/* #buttonLogout {
-	position: absolute;
-	margin-right: auto;
-} */
 
 #first,#previous,#next,#last {
 	width: 100px;

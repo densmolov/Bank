@@ -80,12 +80,8 @@ $(function () {
     Backbone.emulateJSON = false;
     bankTransactions = new TransList();
     
-    /*updateNumberOfAcc();
-    updateName();*/
-    /*var clientView = new ClientView();
-    clientView.render();*/
-
-    
+    //updateName();
+        
     var Controller = Backbone.Router.extend({
        routes: {
            "": "start",
@@ -238,8 +234,8 @@ $(function () {
         initialize : function() {
             _.bindAll(this, 'addOne', 'addAll', 'render');
             bankTransactions.bind('reset', this.addAll);
-            bankTransactions.bind('add', this.addOne);
-            bankTransactions.fetch();
+            //bankTransactions.bind('add', this.addOne);
+            //bankTransactions.fetch();
         },
         addOne : function(bankTransaction) {
             var view = new ClientView({
@@ -251,7 +247,6 @@ $(function () {
             bankTransactions.each(this.addOne);
         }
     });
-
 
         
         
@@ -337,7 +332,7 @@ function updatePaging() {
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
     $("#transListFrame #tableTransactions tbody").html("");
-    //updateSum();
+    updateSum();
 }
 
 /*function updateName() {
@@ -351,7 +346,7 @@ function updatePaging() {
             }
         }).responseText;
     $("#formSpan").html(userName);
-}
+}*/
 function updateSum() {
     $.ajax({
             type: "GET",
@@ -364,18 +359,7 @@ function updateSum() {
         }).responseText;
     $("#formSpan2").html(userSum);
 }
-function updateNumberOfAcc() {
-    $.ajax({
-            type: "GET",
-            url: "client/getNumberOfAcc",
-            async: false,
-            success:function(string) {
-                    userNumber = string;
-                console.log(userNumber);
-            }
-        }).responseText;
-    $("#formSpan3").html(userNumber);
-}*/
+
 
 
 function scrollDown() {

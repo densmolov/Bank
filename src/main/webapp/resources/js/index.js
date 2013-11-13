@@ -12,6 +12,7 @@ $(function () {
     str = req.getResponseHeader("message");
     if(str!=undefined && str.trim()!="") {
     toastr.error(str);
+    //alert(str);
     }
 });
 
