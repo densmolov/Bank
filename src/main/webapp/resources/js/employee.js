@@ -78,7 +78,7 @@ $(function () {
     //    			nameView : new NameView(),
     
     
-    var Controller = Backbone.Router.extend({
+    var MyRouter = Backbone.Router.extend({
        routes: {
            "": 'start',
            "info/:id": 'info'
@@ -101,7 +101,7 @@ $(function () {
         }
     });
     
-    var controller = new Controller();
+    var myRouter = new MyRouter();
     
     //Backbone.history.start({pushState:true});
     Backbone.history.start();
@@ -117,7 +117,7 @@ $(function () {
         },
         info: function(e) {
             e.preventDefault();
-            controller.navigate("info/:id", true);
+            myRouter.navigate("info/:id", {trigger: true} );
         },
         next: function(e) {
             e.preventDefault();
@@ -169,7 +169,7 @@ $(function () {
        cancel: function(e) {
            e.preventDefault();
            toastr.warning("Closing with no changes") ;
-           controller.navigate("", true);
+           myRouter.navigate("", {trigger: true} );
        },
         info: function(e) {
             e.preventDefault();
@@ -182,7 +182,7 @@ $(function () {
                bankTransaction.save();*/
                toastr.success("Smth is happenning right now...") ;
                buttonClick();
-               controller.navigate("", true);
+               myRouter.navigate("", {trigger: true} );
         },
         render: function(model) {
             $(this.el).html(this.template(model));
