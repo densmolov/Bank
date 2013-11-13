@@ -28,11 +28,11 @@ var Account = Backbone.Model.extend({
 });
 
 
-					var creationModel =  {
-					    header: "",
-					    button: "",
-					    message: ""
-					};
+        var creationModel =  {
+                        header: "",
+                        button: "",
+                        message: ""
+        };
 var header = [
     "Warning",
 ];
@@ -59,19 +59,29 @@ var AccList = Backbone.Collection.extend({
     }
 });
 
+                /*var User = Backbone.Model.extend({
+                    url: function(){return 'api/user/id/' + this.id;}
+                });
+                var Users = Backbone.Collection.extend({
+                    model: User,
+                    url: function(){return 'api/users';},
+                    initialize: function() {
+                    }
+                });*/
 
-/*	THE BEGINNING OF GREAT FUNCTION	*/
+
+/*        THE BEGINNING OF GREAT FUNCTION        */
 $(function () {
     updatePaging();
     Backbone.emulateJSON = false;
     accounts = new AccList();
-    //    			nameView : new NameView(),
+    //                            nameView : new NameView(),
     
     
-    var Controller = Backbone.Router.extend({
+    var MyRouter = Backbone.Router.extend({
        routes: {
            "": 'start',
-           "info/:id": 'info'
+           "/info/:id": 'info'
        },
         start: function() {
           closeModal();
@@ -79,19 +89,19 @@ $(function () {
         },
         info: function(id) {
             closeDetailedInfo();
-            if(Views.detailedInfo!=null) {	//????????????????????
+            if(Views.detailedInfo!=null) {        //????????????????????
                 creationModel = {
                     header: "info New",
                     button: "info",
                     message: "creating new"
                 };
             Views.detailedInfo.render(creationModel);
-            			this.accounts.focusOnAccount(id);
+                                    this.accounts.focusOnAccount(id);
             }
         }
     });
     
-    var controller = new Controller();
+    var myRouter = new MyRouter();
     
     //Backbone.history.start({pushState:true});
     Backbone.history.start();
@@ -107,7 +117,7 @@ $(function () {
         },
         info: function(e) {
             e.preventDefault();
-            controller.navigate("info/:id", true);
+            myRouter.navigate("/info/:id", {trigger: true} );
         },
         next: function(e) {
             e.preventDefault();
@@ -132,7 +142,7 @@ $(function () {
     });
     
     var start = new Start();
-	
+        
     AccView = Backbone.View.extend({
         tagName: 'tr',
         template: _.template($("#rowacc").html()),
@@ -147,8 +157,8 @@ $(function () {
         }
     });
 
-	
-	/*     DETAILED ACCOUNT INFORMATION     */
+        
+        /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
       el: $("#template"),
         template: _.template($("#showinfotemplate").html()),
@@ -159,20 +169,20 @@ $(function () {
        cancel: function(e) {
            e.preventDefault();
            toastr.warning("Closing with no changes") ;
-           controller.navigate("", true);
+           myRouter.navigate("", {trigger: true} );
        },
         info: function(e) {
             e.preventDefault();
             
                /*var bankTransaction = new BankTransaction({
-            	   	destinationAccount:$('#destaccount').val(),
-            	   	amountMoney:$('#amount').val()
+                               destinationAccount:$('#destaccount').val(),
+                               amountMoney:$('#amount').val()
                     });
                console.log(bankTransaction);
                bankTransaction.save();*/
                toastr.success("Smth is happenning right now...") ;
                buttonClick();
-               controller.navigate("", true);
+               myRouter.navigate("", {trigger: true} );
         },
         render: function(model) {
             $(this.el).html(this.template(model));
@@ -181,7 +191,7 @@ $(function () {
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
-	
+        
     AllAccView = Backbone.View.extend({
         el : $('#accListFrame'),
         initialize : function() {
@@ -199,13 +209,13 @@ $(function () {
         addAll : function() {
             accounts.each(this.addOne);
         }
-    });	
-	
+    });        
+        
     Views = {
-    	detailedInfo: new DetailedInfo(),
+            detailedInfo: new DetailedInfo(),
         allAccView: new AllAccView()
     };
-	
+        
     // handlers for elements which are not in .content
     $("#buttonLogout").click(function (e) {
         e.preventDefault();
@@ -221,13 +231,13 @@ $(function () {
     });
 
 });
-/*	THE END OF THE GREAT FUNCTION	*/
+/*        THE END OF THE GREAT FUNCTION        */
 
 
 function buttonClick() {
     accounts = new AccList();
     accView = new AccView();
-    		//nameView = new NameView();
+                    //nameView = new NameView();
     updatePaging();
     Views.allAccView = new AllAccView();
     setTimeout(scrollDown, 100);
@@ -251,8 +261,8 @@ function updatePaging() {
     $("#first").attr("disabled", false);
     $("#last").attr("disabled", false);
     if(totalPages===0) {
-    	$("#previous").attr("disabled", true);
-    	$("#next").attr("disabled", true);
+            $("#previous").attr("disabled", true);
+            $("#next").attr("disabled", true);
         $("#first").attr("disabled", true);
         $("#last").attr("disabled", true);
         totalPages = "NONE";
@@ -261,7 +271,7 @@ function updatePaging() {
         $("#first").attr("disabled", true);
         $("#last").attr("disabled", true);
         $("#previous").attr("disabled", true);
-    	$("#next").attr("disabled", true);
+            $("#next").attr("disabled", true);
     }
     if(index===1) {
         $("#previous").attr("disabled", true);
@@ -307,4 +317,3 @@ function showModal(head, message, id) {
 function closeDetailedInfo() {
     $(".container#createshowinfo").fadeOut();
 }
-

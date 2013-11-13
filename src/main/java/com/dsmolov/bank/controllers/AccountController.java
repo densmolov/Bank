@@ -31,10 +31,10 @@ public class AccountController {
 		return accountService.getAccCount();
 	}
 	
-	@RequestMapping(value = "/employee/info/{accountNumber}", method = RequestMethod.GET)	//employee#info
-	public @ResponseBody
-	Account getFullInfoByAccountNumber(@PathVariable("accountNumber") String accountNumber) {
-		return accountService.getFullInfoByAccountNumber(accountNumber);
-	}
+	@RequestMapping(value = "/employee/info/{id}", method = RequestMethod.GET)        //        info/:id        #info/:10
+    public @ResponseBody
+    Account getFullInfoByAccountId(@PathVariable("id") int accId) {
+            return accountService.getFullInfoByAccountId(accId);
+    }
 
 }

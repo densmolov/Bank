@@ -26,8 +26,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Transactional
-	public Account getFullInfoByAccountNumber(String accountNumber) {
-		return accountDAO.getFullInfoByAccountNumber(accountNumber);
-	}
+    public Account getFullInfoByAccountId(int accId) {
+            return accountDAO.getFullInfoByAccountId(accId);
+    }
 
 }

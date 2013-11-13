@@ -10,6 +10,6 @@ public interface AccountDAO {
 	   
 	public Integer getAccCount();
 
-	public Account getFullInfoByAccountNumber(String accountNumber);
+	public Account getFullInfoByAccountId(int accId);
 
 }
