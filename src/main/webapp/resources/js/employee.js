@@ -81,13 +81,13 @@ $(function () {
     var MyRouter = Backbone.Router.extend({
        routes: {
            "": 'start',
-           "/info/:id": 'info'
+           "/info/:id": 'informMe'
        },
         start: function() {
           closeModal();
           closeDetailedInfo();
         },
-        info: function(id) {
+        informMe: function(id) {
             closeDetailedInfo();
             if(Views.detailedInfo!=null) {        //????????????????????
                 creationModel = {
@@ -103,8 +103,8 @@ $(function () {
     
     var myRouter = new MyRouter();
     
-    //Backbone.history.start({pushState:true});
-    Backbone.history.start();
+    Backbone.history.start({pushState: true, root: "/bank/employee"});
+    //Backbone.history.start();
     
     var Start = Backbone.View.extend({
         el: $(".content"),
@@ -171,23 +171,17 @@ $(function () {
            toastr.warning("Closing with no changes") ;
            myRouter.navigate("", {trigger: true} );
        },
-        info: function(e) {
-            e.preventDefault();
-            
-               /*var bankTransaction = new BankTransaction({
-                               destinationAccount:$('#destaccount').val(),
-                               amountMoney:$('#amount').val()
-                    });
-               console.log(bankTransaction);
-               bankTransaction.save();*/
-               toastr.success("Smth is happenning right now...") ;
-               buttonClick();
-               myRouter.navigate("", {trigger: true} );
-        },
-        render: function(model) {
-            $(this.el).html(this.template(model));
-        }
-    });
+       info: function(e) {
+    	   e.preventDefault();
+
+    	   toastr.success("Smth is happenning right now...") ;
+    	   //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
+    	   myRouter.navigate("", {trigger: true} );
+       },
+       render: function(model) {
+    	   	$(this.el).html(this.template(model));
+       }
+	});
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
@@ -283,7 +277,7 @@ function updatePaging() {
     }
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
-    $("#accListFrame #tableAccounts tbody").html("");///////////
+    $("#accListFrame #tableAccounts tbody").html("");
 }
 
 

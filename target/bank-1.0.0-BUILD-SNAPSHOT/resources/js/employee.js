@@ -81,13 +81,14 @@ $(function () {
     var MyRouter = Backbone.Router.extend({
        routes: {
            "": 'start',
-           "/info/:id": 'info'
+           "/info/:id": 'informMe'
+           //"bank/employee/accounts/info/:id": 'informMe'
        },
         start: function() {
           closeModal();
           closeDetailedInfo();
         },
-        info: function(id) {
+        informMe: function(id) {
             closeDetailedInfo();
             if(Views.detailedInfo!=null) {        //????????????????????
                 creationModel = {
@@ -103,8 +104,8 @@ $(function () {
     
     var myRouter = new MyRouter();
     
-    //Backbone.history.start({pushState:true});
-    Backbone.history.start();
+    Backbone.history.start({pushState: true, root: "/bank/employee"});
+    //Backbone.history.start();
     
     var Start = Backbone.View.extend({
         el: $(".content"),
@@ -118,6 +119,7 @@ $(function () {
         info: function(e) {
             e.preventDefault();
             myRouter.navigate("/info/:id", {trigger: true} );
+            //myRouter.navigate("bank/employee/accounts/info/:id", {trigger: true} );
         },
         next: function(e) {
             e.preventDefault();
@@ -181,7 +183,7 @@ $(function () {
                console.log(bankTransaction);
                bankTransaction.save();*/
                toastr.success("Smth is happenning right now...") ;
-               buttonClick();
+               //buttonClick();
                myRouter.navigate("", {trigger: true} );
         },
         render: function(model) {
