@@ -25,7 +25,7 @@ var BankTransaction = Backbone.Model.extend({
 
 
     url:function() {
-        return 'client/create';
+        return '/bank/client/create';
     }
 
 
@@ -61,7 +61,7 @@ var paging = 10;
 
 
 var TransList = Backbone.Collection.extend({
-    baseUrl: 'client/transactions',
+	baseUrl: 'client/transactions',
     initialize: function() {
         _.bindAll(this, 'url');
         this.index = index;
@@ -82,10 +82,10 @@ $(function () {
     
     //updateName();
         
-    var Controller = Backbone.Router.extend({
+    var MyRouter = Backbone.Router.extend({
        routes: {
            "": "start",
-           "create": "create"
+           "/create": 'create'
        },
         start: function() {
           closeModal();
@@ -104,14 +104,15 @@ $(function () {
         }
     });
     
-    var controller = new Controller();
+    var myRouter = new MyRouter();
     
-    Backbone.history.start();
+    Backbone.history.start({pushState: true, root: "/bank/client"});
+    //Backbone.history.start();
     
     var Start = Backbone.View.extend({
         el: $(".content"),
         events: {
-            "click a#create": "create",
+            "click #create": "create",
             "click #next": "next",
             "click #previous": "previous",
             "click #first": "first",
@@ -119,7 +120,7 @@ $(function () {
         },
         create: function(e) {
             e.preventDefault();
-            controller.navigate("create", true);
+            myRouter.navigate("/create", {trigger: true} );
         },
         next: function(e) {
             e.preventDefault();
@@ -186,7 +187,8 @@ $(function () {
        cancel: function(e) {
            e.preventDefault();
            toastr.warning("Stopped creating a transaction") ;
-           controller.navigate("", true);
+           myRouter.navigate("", {trigger: true} );
+           buttonClick();
        },
         confirmNewTr: function(e) {
             e.preventDefault();
@@ -200,9 +202,8 @@ $(function () {
                console.log(bankTransaction);
                bankTransaction.save();
                toastr.success("Transaction was successfully created!") ;
-               updatePaging();
+               myRouter.navigate("", {trigger: true} );
                buttonClick();
-               controller.navigate("", true);
             }
         },
         render: function(model) {

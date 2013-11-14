@@ -96,7 +96,7 @@ $(function () {
                     message: "creating new"
                 };
             Views.detailedInfo.render(creationModel);
-                                    this.accounts.focusOnAccount(id);
+                                   // this.accounts.focusOnAccount(id);
             }
         }
     });

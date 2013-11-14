@@ -61,10 +61,5 @@ public class TransactionController {
         Double getSum(Model model, Principal principal) {
                 return getCurrentUser(model, principal).getAccount().getMoneyLeft();
         }
-        @RequestMapping(value = "/client/getNumberOfAcc", method = RequestMethod.GET)
-        public @ResponseBody
-        String getNumberOfAcc(Model model, Principal principal) {
-                return getCurrentUser(model, principal).getAccount().getAccountNumber();
-        }
         
 }

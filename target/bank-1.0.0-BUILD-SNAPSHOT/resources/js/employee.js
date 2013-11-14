@@ -82,7 +82,6 @@ $(function () {
        routes: {
            "": 'start',
            "/info/:id": 'informMe'
-           //"bank/employee/accounts/info/:id": 'informMe'
        },
         start: function() {
           closeModal();
@@ -97,7 +96,7 @@ $(function () {
                     message: "creating new"
                 };
             Views.detailedInfo.render(creationModel);
-                                    this.accounts.focusOnAccount(id);
+                                   // this.accounts.focusOnAccount(id);
             }
         }
     });
@@ -119,7 +118,6 @@ $(function () {
         info: function(e) {
             e.preventDefault();
             myRouter.navigate("/info/:id", {trigger: true} );
-            //myRouter.navigate("bank/employee/accounts/info/:id", {trigger: true} );
         },
         next: function(e) {
             e.preventDefault();
@@ -173,23 +171,17 @@ $(function () {
            toastr.warning("Closing with no changes") ;
            myRouter.navigate("", {trigger: true} );
        },
-        info: function(e) {
-            e.preventDefault();
-            
-               /*var bankTransaction = new BankTransaction({
-                               destinationAccount:$('#destaccount').val(),
-                               amountMoney:$('#amount').val()
-                    });
-               console.log(bankTransaction);
-               bankTransaction.save();*/
-               toastr.success("Smth is happenning right now...") ;
-               //buttonClick();
-               myRouter.navigate("", {trigger: true} );
-        },
-        render: function(model) {
-            $(this.el).html(this.template(model));
-        }
-    });
+       info: function(e) {
+    	   e.preventDefault();
+
+    	   toastr.success("Smth is happenning right now...") ;
+    	   //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
+    	   myRouter.navigate("", {trigger: true} );
+       },
+       render: function(model) {
+    	   	$(this.el).html(this.template(model));
+       }
+	});
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
@@ -285,7 +277,7 @@ function updatePaging() {
     }
     $("#pageIndex").html(index);
     $("#totalPages").html(totalPages);
-    $("#accListFrame #tableAccounts tbody").html("");///////////
+    $("#accListFrame #tableAccounts tbody").html("");
 }
 
 
