@@ -21,10 +21,19 @@ var Account = Backbone.Model.extend({
 
 
     url:function() {
-        return 'employee/info';
+        return 'employee/info/' + this.id;
+        //return 'employee/info';
     }
 
-
+	/*var User = Backbone.Model.extend({
+	url: function(){return 'api/user/id/' + this.id;}
+	});
+	var Users = Backbone.Collection.extend({
+	model: User,
+	url: function(){return 'api/users';},
+	initialize: function() {
+	}
+	});*/
 });
 
 
@@ -58,16 +67,6 @@ var AccList = Backbone.Collection.extend({
         });
     }
 });
-
-                /*var User = Backbone.Model.extend({
-                    url: function(){return 'api/user/id/' + this.id;}
-                });
-                var Users = Backbone.Collection.extend({
-                    model: User,
-                    url: function(){return 'api/users';},
-                    initialize: function() {
-                    }
-                });*/
 
 
 /*        THE BEGINNING OF GREAT FUNCTION        */
@@ -152,6 +151,9 @@ $(function () {
         render: function() {
             var element = this.template(this.model.toJSON());
             console.log(this.model.toJSON());
+            /***/
+            console.log(this.model.get('accountId') );
+            /***/
             $(this.el).html(element);
             return this;
         }
@@ -172,16 +174,16 @@ $(function () {
            myRouter.navigate("", {trigger: true} );
        },
        info: function(e) {
-    	   e.preventDefault();
+               e.preventDefault();
 
-    	   toastr.success("Smth is happenning right now...") ;
-    	   //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
-    	   myRouter.navigate("", {trigger: true} );
+               toastr.success("Smth is happenning right now...") ;
+               //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
+               myRouter.navigate("", {trigger: true} );
        },
        render: function(model) {
-    	   	$(this.el).html(this.template(model));
+                       $(this.el).html(this.template(model));
        }
-	});
+        });
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
