@@ -21,7 +21,8 @@ var Account = Backbone.Model.extend({
 
 
     url:function() {
-        return 'employee/info/' + this.id;
+    	return 'employee/info/' + this.model.get('accountId');
+        //return 'employee/info/' + this.id;
         //return 'employee/info';
     }
 
@@ -103,7 +104,6 @@ $(function () {
     var myRouter = new MyRouter();
     
     Backbone.history.start({pushState: true, root: "/bank/employee"});
-    //Backbone.history.start();
     
     var Start = Backbone.View.extend({
         el: $(".content"),
@@ -165,7 +165,7 @@ $(function () {
       el: $("#template"),
         template: _.template($("#showinfotemplate").html()),
         events: {
-          "click .btn-success#change_status_btn": "info",
+          "click .btn-success#change_status_btn": "accept",
           "click .btn-danger#cancel": "cancel"
       },
        cancel: function(e) {
@@ -173,9 +173,8 @@ $(function () {
            toastr.warning("Closing with no changes") ;
            myRouter.navigate("", {trigger: true} );
        },
-       info: function(e) {
+       accept: function(e) {
                e.preventDefault();
-
                toastr.success("Smth is happenning right now...") ;
                //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
                myRouter.navigate("", {trigger: true} );
