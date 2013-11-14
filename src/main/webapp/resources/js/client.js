@@ -169,7 +169,6 @@ $(function () {
         },
         render: function() {
             var element = this.template(this.model.toJSON());
-            console.log(this.model.toJSON());
             $(this.el).html(element);
             return this;
         }

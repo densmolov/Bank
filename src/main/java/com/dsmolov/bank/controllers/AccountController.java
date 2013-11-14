@@ -32,7 +32,6 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/employee/info/{id}", method = RequestMethod.GET)
-	//http://localhost:8080/bank/employee/info/:id
     public @ResponseBody
     Account getFullInfoByAccountId(@PathVariable("id") int accId) {
             return accountService.getFullInfoByAccountId(accId);

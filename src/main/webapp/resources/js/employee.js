@@ -12,15 +12,6 @@ var Account = Backbone.Model.extend({
         //return 'employee/info';
     }
 
-	/*var User = Backbone.Model.extend({
-	url: function(){return 'api/user/id/' + this.id;}
-	});
-	var Users = Backbone.Collection.extend({
-	model: User,
-	url: function(){return 'api/users';},
-	initialize: function() {
-	}
-	});*/
 });
 
 
@@ -66,8 +57,8 @@ $(function () {
     
     var MyRouter = Backbone.Router.extend({
        routes: {
-           "": 'start',
-           "/info/:id": 'informMe'
+    	   "/info/:id": 'informMe',
+    	   "": 'start'
        },
         start: function() {
           closeModal();
@@ -82,10 +73,23 @@ $(function () {
                     message: "creating new"
                 };
             Views.detailedInfo.render(creationModel);
-                                   // this.accounts.focusOnAccount(id);
+            				//this.accounts.focusOnAccount(id);
             }
         }
     });
+    
+    /*function focusOnAccount(outsideInt) {
+        $.ajax({
+                type: "GET",
+                url: "/employee/info/{id}",
+                async: false,
+                success:function(intInt) {
+                	userSum = intInt;
+                    console.log(userSum);
+                }
+            }).responseText;
+        $("#formSpan2").html(employeeTemplate);
+    }*/
     
     var myRouter = new MyRouter();
     
@@ -150,7 +154,7 @@ $(function () {
         
         /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
-      el: $("#template"),
+      el: $("#employeeTemplate"),
         template: _.template($("#showinfotemplate").html()),
         events: {
           "click .btn-success#change_status_btn": "accept",
