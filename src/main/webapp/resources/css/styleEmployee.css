@@ -77,7 +77,7 @@ legend {
 	height: 440px;
 }
 
-#paintItBlue {
+#spanStatus, #spanNumber, #spanAmount {
 	color: #08c;
 }
 #commentButtons {

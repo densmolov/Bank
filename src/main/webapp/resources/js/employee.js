@@ -5,23 +5,9 @@ var AccView;
 
 
 var Account = Backbone.Model.extend({
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		
     url:function() {
-    	return 'employee/info/' + this.model.get('accountId');
+    	return 'employee/info/' + this.model.get('accountId');	// or this.id=accountId
         //return 'employee/info/' + this.id;
         //return 'employee/info';
     }
@@ -152,7 +138,9 @@ $(function () {
             var element = this.template(this.model.toJSON());
             console.log(this.model.toJSON());
             /***/
-            console.log(this.model.get('accountId') );
+            	/***/
+            		console.log('1. ' + this.model.get('accountId') );	//console.log('2. ' + this.model.attributes);
+            	/***/
             /***/
             $(this.el).html(element);
             return this;
