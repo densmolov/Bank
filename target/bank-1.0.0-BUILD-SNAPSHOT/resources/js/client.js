@@ -26,7 +26,6 @@ var BankTransaction = Backbone.Model.extend({
 
     url:function() {
         return '/bank/client/create';
-        //return 'client/create';
     }
 
 
@@ -86,7 +85,6 @@ $(function () {
     var MyRouter = Backbone.Router.extend({
        routes: {
            "": "start",
-           //"create": "create"
            "/create": 'create'
        },
         start: function() {
@@ -109,7 +107,6 @@ $(function () {
     var myRouter = new MyRouter();
     
     Backbone.history.start({pushState: true, root: "/bank/client"});
-    //Backbone.history.start({pushState: true, root: "/bank/client"});
     //Backbone.history.start();
     
     var Start = Backbone.View.extend({
@@ -191,7 +188,6 @@ $(function () {
            e.preventDefault();
            toastr.warning("Stopped creating a transaction") ;
            myRouter.navigate("", {trigger: true} );
-           //updatePaging();
            buttonClick();
        },
         confirmNewTr: function(e) {
@@ -206,7 +202,6 @@ $(function () {
                console.log(bankTransaction);
                bankTransaction.save();
                toastr.success("Transaction was successfully created!") ;
-               //buttonClick();
                myRouter.navigate("", {trigger: true} );
                buttonClick();
             }

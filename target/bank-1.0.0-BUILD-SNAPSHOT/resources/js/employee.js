@@ -5,26 +5,22 @@ var AccView;
 
 
 var Account = Backbone.Model.extend({
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		
     url:function() {
-        return 'employee/info';
+    	return 'employee/info/' + this.model.get('accountId');	// or this.id=accountId
+        //return 'employee/info/' + this.id;
+        //return 'employee/info';
     }
 
-
+	/*var User = Backbone.Model.extend({
+	url: function(){return 'api/user/id/' + this.id;}
+	});
+	var Users = Backbone.Collection.extend({
+	model: User,
+	url: function(){return 'api/users';},
+	initialize: function() {
+	}
+	});*/
 });
 
 
@@ -58,16 +54,6 @@ var AccList = Backbone.Collection.extend({
         });
     }
 });
-
-                /*var User = Backbone.Model.extend({
-                    url: function(){return 'api/user/id/' + this.id;}
-                });
-                var Users = Backbone.Collection.extend({
-                    model: User,
-                    url: function(){return 'api/users';},
-                    initialize: function() {
-                    }
-                });*/
 
 
 /*        THE BEGINNING OF GREAT FUNCTION        */
@@ -104,7 +90,6 @@ $(function () {
     var myRouter = new MyRouter();
     
     Backbone.history.start({pushState: true, root: "/bank/employee"});
-    //Backbone.history.start();
     
     var Start = Backbone.View.extend({
         el: $(".content"),
@@ -152,6 +137,11 @@ $(function () {
         render: function() {
             var element = this.template(this.model.toJSON());
             console.log(this.model.toJSON());
+            /***/
+            	/***/
+            		console.log('1. ' + this.model.get('accountId') );	//console.log('2. ' + this.model.attributes);
+            	/***/
+            /***/
             $(this.el).html(element);
             return this;
         }
@@ -163,7 +153,7 @@ $(function () {
       el: $("#template"),
         template: _.template($("#showinfotemplate").html()),
         events: {
-          "click .btn-success#change_status_btn": "info",
+          "click .btn-success#change_status_btn": "accept",
           "click .btn-danger#cancel": "cancel"
       },
        cancel: function(e) {
@@ -171,17 +161,16 @@ $(function () {
            toastr.warning("Closing with no changes") ;
            myRouter.navigate("", {trigger: true} );
        },
-       info: function(e) {
-    	   e.preventDefault();
-
-    	   toastr.success("Smth is happenning right now...") ;
-    	   //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
-    	   myRouter.navigate("", {trigger: true} );
+       accept: function(e) {
+               e.preventDefault();
+               toastr.success("Smth is happenning right now...") ;
+               //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
+               myRouter.navigate("", {trigger: true} );
        },
        render: function(model) {
-    	   	$(this.el).html(this.template(model));
+                       $(this.el).html(this.template(model));
        }
-	});
+        });
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
