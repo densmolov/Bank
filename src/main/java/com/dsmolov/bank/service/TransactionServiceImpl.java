@@ -40,9 +40,7 @@ public class TransactionServiceImpl implements TransactionService{
                         transactionDAO.isAmountPositive(amountValid) &&
                         transactionDAO.isAmountAvailable(amountValid, AmountOnTheAcc) ) {
                         return true;
-                } else {
-                        return false;
-                }
+                } else { return false; }
         }
 
         @Transactional
@@ -60,7 +58,6 @@ public class TransactionServiceImpl implements TransactionService{
         @Transactional
         public User getCurrentUser(Model model, Principal principal) {
                 String name = principal.getName();
-                model.addAttribute("userName", name);
                 User currentUser = transactionDAO.getUserByLogin(name);
                 return currentUser;
         }

@@ -32,7 +32,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 		@Override
 		public List<Transaction> getTransactions(String value, int index) {
-			//public List<Transaction> getTransactions(String value, int index) {
                 Session session = sessionFactory.getCurrentSession();
                 Criteria criteria = session.createCriteria(Transaction.class);
                 criteria.add( Restrictions.eq("sourceAccount", value) );

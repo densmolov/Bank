@@ -46,7 +46,7 @@ public class AccountDAOImpl implements AccountDAO {
             @SuppressWarnings("unchecked")
             List<Account> accounts = (List<Account>) criteria.list();
             if(accounts!=null && accounts.size()!=0) {
-                    /*        REMOVE        BELOW */
+            	/*        REMOVE        BELOW */
                     System.out.println("                        Status : " + accounts.get(0).getStatus());
                     System.out.println("                        Number : " + accounts.get(0).getAccountNumber());
                     System.out.println("                        Owner full name : " + accounts.get(0).getUser().getUserName());
@@ -59,7 +59,7 @@ public class AccountDAOImpl implements AccountDAO {
                     for (int i=0; i<trs.size() ; i++) {
                             System.out.println("                        " + (i+1) + ". " + trs.get(i) + ";");
                     }
-                    /*        REMOVE        ABOVE */
+               /*        REMOVE        ABOVE */
                     return accounts.get(0);
             }
             return null;

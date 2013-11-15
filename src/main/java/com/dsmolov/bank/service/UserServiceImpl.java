@@ -10,19 +10,5 @@ public class UserServiceImpl implements UserService {
 	
 	 @Autowired
 	 private UserDAO userDAO;
-
-	 /*@Transactional
- 	 public User getUserById(int userId) {			
-		  return userDAO.getUserById(userId);
-	 }*/
-
-	 /*@Transactional
-	 public User getUserByP(String password) {
-		  return userDAO.getUserByP(password);
-	 }*/
 	 
-	 /*@Transactional
-	 public User getUserByLogin(String login) {
-		  return userDAO.getUserByLogin(login);
-	 }*/
 }

@@ -6,20 +6,19 @@ var AccView;
 
 var Account = Backbone.Model.extend({
 		
-    url:function() {
-    	return 'employee/info/' + this.model.get('accountId');	// or this.id=accountId
-        //return 'employee/info/' + this.id;
-        //return 'employee/info';
-    }
+    /*url:function() {
+    	//return 'employee/info/' + this.model.get('accountId');	// or this.id=accountId
+        return 'employee/info/' + this.id;
+    }*/
+
+	url: function() {
+		return this.baseUrl + '?' + $.param({
+			id: this.accountId
+		});
+	}
 
 });
 
-
-        var creationModel =  {
-                        header: "",
-                        button: "",
-                        message: ""
-        };
 var header = [
     "Warning",
 ];
@@ -65,16 +64,15 @@ $(function () {
           closeDetailedInfo();
         },
         informMe: function(id) {
-            closeDetailedInfo();
-            if(Views.detailedInfo!=null) {        //????????????????????
-                creationModel = {
-                    header: "info New",
-                    button: "info",
-                    message: "creating new"
-                };
-            Views.detailedInfo.render(creationModel);
-            				//this.accounts.focusOnAccount(id);
-            }
+        	closeDetailedInfo();
+        	/************/
+        	//detailedInfo = new DetailedInfo ({ model: new Account({id:id}) });
+        	Views.detailedInfo.render();
+        	console.log('creating new');
+        			//myRouter.navigate('/info/' + this.model.get('id'), {trigger:true});
+        	/************/
+        	//Views.detailedInfo.render(creationModel);	//WORKS
+        						//this.accounts.focusOnAccount(id);
         }
     });
     
@@ -84,8 +82,8 @@ $(function () {
                 url: "/employee/info/{id}",
                 async: false,
                 success:function(intInt) {
-                	userSum = intInt;
-                    console.log(userSum);
+                	thisId = intInt;
+                    console.log(thisId);
                 }
             }).responseText;
         $("#formSpan2").html(employeeTemplate);
@@ -143,7 +141,9 @@ $(function () {
             console.log(this.model.toJSON());
             /***/
             	/***/
-            		console.log('1. ' + this.model.get('accountId') );	//console.log('2. ' + this.model.attributes);
+            		/***/
+            			console.log('1. ' + this.model.get('accountId') );
+            		/***/
             	/***/
             /***/
             $(this.el).html(element);
@@ -160,6 +160,19 @@ $(function () {
           "click .btn-success#change_status_btn": "accept",
           "click .btn-danger#cancel": "cancel"
       },
+      /***********/
+      /*initialize: function() {
+          // Update Model with Full details
+          var self = this;
+          this.model.fetch({
+              data: {post_id: self.model.get('id') },
+              processData: true,
+              success: function() {
+                  self.render();
+                  }
+              });
+      },*/
+      /*************/
        cancel: function(e) {
            e.preventDefault();
            toastr.warning("Closing with no changes") ;
@@ -171,8 +184,7 @@ $(function () {
                //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
                myRouter.navigate("", {trigger: true} );
        },
-       render: function(model) {
-                       $(this.el).html(this.template(model));
+       render: function(model) { $(this.el).html(this.template(model));
        }
         });
     /*     end DETAILED ACCOUNT INFORMATION ends     */
@@ -200,7 +212,7 @@ $(function () {
         
     Views = {
             detailedInfo: new DetailedInfo(),
-        allAccView: new AllAccView()
+            allAccView: new AllAccView()
     };
         
     // handlers for elements which are not in .content
