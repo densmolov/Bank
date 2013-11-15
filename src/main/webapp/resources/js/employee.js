@@ -64,9 +64,12 @@ $(function () {
           closeDetailedInfo();
         },
         informMe: function(id) {
+        	this.id = id;
         	closeDetailedInfo();
         	/************/
+        	alert( "Get id...   " + id );	// no effect. Shows "Get id...  :id"
         	//detailedInfo = new DetailedInfo ({ model: new Account({id:id}) });
+        	//detailedInfo = new DetailedInfo ({model: this.accounts.get(id)}).render();
         	Views.detailedInfo.render();
         	console.log('creating new');
         			//myRouter.navigate('/info/' + this.model.get('id'), {trigger:true});
@@ -154,7 +157,10 @@ $(function () {
         
         /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
-      el: $("#employeeTemplate"),
+    	/***/
+    		baseUrl: 'employee/info/2',
+    	/***/
+    	el: $("#employeeTemplate"),
         template: _.template($("#showinfotemplate").html()),
         events: {
           "click .btn-success#change_status_btn": "accept",
@@ -184,7 +190,8 @@ $(function () {
                //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
                myRouter.navigate("", {trigger: true} );
        },
-       render: function(model) { $(this.el).html(this.template(model));
+       render: function(model) {
+    	   $(this.el).html(this.template(model));
        }
         });
     /*     end DETAILED ACCOUNT INFORMATION ends     */

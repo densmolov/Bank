@@ -199,7 +199,7 @@ $(function () {
             this.$('#tableTransactions').append(view.render().el);
         },
         addAll : function() {
-            bankTransactions.each(this.addOne);
+        	bankTransactions.each(this.addOne);
         }
     });
     AllClientView = Backbone.View.extend({
@@ -217,7 +217,7 @@ $(function () {
             this.$('#userinfo').append(view.render().el);
         },
         addAll : function() {
-            bankTransactions.each(this.addOne);
+        	bankTransactions.each(this.addOne);
         }
     });
 
