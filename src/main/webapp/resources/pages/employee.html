@@ -92,6 +92,7 @@
     <div class="container" id="createshowinfo" title="Detailed account information">
 <form class="form-horizontal well">
 	<div>
+		<!--%=accountNumber%-->
 		Status : <span id="spanStatus">ACTIVE</span><br/>
 		Number : <span id="spanNumber">2620199011234</span><br/>
 		Owner full name : <span id="spanName">John Silver</span><br/>		
@@ -160,12 +161,20 @@
 </div>
 </script>
 
-<script id="rowacc" type="text/template">
+<script id="rowacc2" type="text/template">
     <td><%=user.userName %></td>
 	<td><%=accountNumber %></td>
 	<td><%=status %></td>
 	<td><a href="" title="Full info on this account" id="info">Details</a></td>
 </script>
+
+<script id="rowacc" type="text/template">
+	<td><%=user.userName %></td>
+	<td><%=accountNumber %></td>
+	<td><%=status %></td>
+	<td><a href="" title="Full info on this account" id="info">Details</a></td>
+</script>
+
 
 </body>
 

@@ -3,6 +3,10 @@ var accounts;
 var AllAccView;
 var AccView;
 
+/*****/
+	//var accId = null;
+/*****/
+
 
 var Account = Backbone.Model.extend({
 		
@@ -65,14 +69,13 @@ $(function () {
         },
         informMe: function(id) {
         	this.id = id;
+        	console.log('ididid ' + id);
         	closeDetailedInfo();
         	/************/
-        	alert( "Get id...   " + id );	// no effect. Shows "Get id...  :id"
-        	//detailedInfo = new DetailedInfo ({ model: new Account({id:id}) });
+        	//alert( "Get id...   " + id );	// no effect. Shows "Get id...  ;id"
+        	//detailedInfo = new DetailedInfo ({ model: new Account({id;id}) });
         	//detailedInfo = new DetailedInfo ({model: this.accounts.get(id)}).render();
         	Views.detailedInfo.render();
-        	console.log('creating new');
-        			//myRouter.navigate('/info/' + this.model.get('id'), {trigger:true});
         	/************/
         	//Views.detailedInfo.render(creationModel);	//WORKS
         						//this.accounts.focusOnAccount(id);
@@ -99,16 +102,16 @@ $(function () {
     var Start = Backbone.View.extend({
         el: $(".content"),
         events: {
-            "click #info": "info",
+            //"click #info": "info",
             "click #next": "next",
             "click #previous": "previous",
             "click #first": "first",
             "click #last": "last"
         },
-        info: function(e) {
+        /*info: function(e) {
             e.preventDefault();
-            myRouter.navigate("/info/:id", {trigger: true} );
-        },
+            //myRouter.navigate("/info/:id", {trigger: true} );
+        },*/
         next: function(e) {
             e.preventDefault();
             index++;
@@ -136,6 +139,16 @@ $(function () {
     AccView = Backbone.View.extend({
         tagName: 'tr',
         template: _.template($("#rowacc").html()),
+/*****//*****/
+        events: {
+            "click #info": "clicked"
+        },
+        clicked: function(e){
+            e.preventDefault();
+            //var accId = this.model.get("accountId");
+            myRouter.navigate('/info/' + this.model.get("accountId"), {trigger:true});
+        },
+/*****//*****/
         initialize: function(){
             _.bind(this.render, this);
         },
@@ -158,7 +171,7 @@ $(function () {
         /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
     	/***/
-    		baseUrl: 'employee/info/2',
+    		//baseUrl: 'employee/info/:id',
     	/***/
     	el: $("#employeeTemplate"),
         template: _.template($("#showinfotemplate").html()),
@@ -187,7 +200,6 @@ $(function () {
        accept: function(e) {
                e.preventDefault();
                toastr.success("Smth is happenning right now...") ;
-               //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
                myRouter.navigate("", {trigger: true} );
        },
        render: function(model) {
