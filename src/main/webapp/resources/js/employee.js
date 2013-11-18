@@ -169,7 +169,7 @@ $(function () {
         /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
     	/***/
-    		/*baseUrl: 'employee/info/:id',*/
+    		//baseUrl: 'employee/info/:id',
     	baseUrl: 'employee/info/',
     	/***/
     	el: $("#employeeTemplate"),
@@ -204,14 +204,13 @@ $(function () {
        /*render: function(idid) {
     	   var myId = idid;
     	   console.log('DetailedInfo sees id as ' + myId);
-    	   var detailed = new Account ( {id:myId} );
-    	   console.log('detailed is   ' + detailed.get('id'));
-    	   //detailed.fetch();							///////////////////////////   WHY NOT WORKING CORRECTLY??????	////////////
-    	   return this.baseUrl + '?' + $.param({
-               id: this.accountId
-       });
-       }*/
-       render: function(model) {    	   
+    	   var detailed = new Account ( {accountId:myId} );
+    	   console.log('detailed ID is   ' + detailed.get('accountId'));
+    	   detailed.fetch();							///////////////////////////   WHY NOT WORKING CORRECTLY??????	////////////
+*/    	   /*return this.baseUrl + '?' + $.param({
+               id: this.accountId});*/
+       /*}*/
+       render: function(model) {
     	   $(this.el).html(this.template(model));
        }
 	});
