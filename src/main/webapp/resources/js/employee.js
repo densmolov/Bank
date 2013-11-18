@@ -15,7 +15,7 @@ var Account = Backbone.Model.extend({
         return 'employee/info/' + this.id;
     }*/
 	/*id:,*/
-	urlRoot : '/employee/info',
+	urlRoot : '/employee/info/',
 	url: function() {
 		return this.baseUrl + '?' + $.param({
 			id: this.accountId
@@ -204,12 +204,12 @@ $(function () {
        /*render: function(idid) {
     	   var myId = idid;
     	   console.log('DetailedInfo sees id as ' + myId);
-    	   var detailed = new Account ( {accountId:myId} );
+    	   var detailed = new Account ( {accountId :myId} );
     	   console.log('detailed ID is   ' + detailed.get('accountId'));
-    	   detailed.fetch();							///////////////////////////   WHY NOT WORKING CORRECTLY??????	////////////
-*/    	   /*return this.baseUrl + '?' + $.param({
+    	   detailed.fetch();*/							///////////////////////////   WHY NOT WORKING CORRECTLY??????	////////////
+    	   /*return this.baseUrl + '?' + $.param({
                id: this.accountId});*/
-       /*}*/
+       //}
        render: function(model) {
     	   $(this.el).html(this.template(model));
        }
