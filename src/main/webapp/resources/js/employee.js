@@ -14,7 +14,8 @@ var Account = Backbone.Model.extend({
     	//return 'employee/info/' + this.model.get('accountId');	// or this.id=accountId
         return 'employee/info/' + this.id;
     }*/
-
+	/*id:,*/
+	urlRoot : '/employee/info',
 	url: function() {
 		return this.baseUrl + '?' + $.param({
 			id: this.accountId
@@ -69,15 +70,11 @@ $(function () {
         },
         informMe: function(id) {
         	this.id = id;
-        	console.log('ididid ' + id);
-        	closeDetailedInfo();
+        	console.log('(inside of) MyRouter sees id as ' + id);
+        	//closeDetailedInfo();
         	/************/
-        	//alert( "Get id...   " + id );	// no effect. Shows "Get id...  ;id"
-        	//detailedInfo = new DetailedInfo ({ model: new Account({id;id}) });
-        	//detailedInfo = new DetailedInfo ({model: this.accounts.get(id)}).render();
-        	Views.detailedInfo.render();
+        	Views.detailedInfo.render(id);
         	/************/
-        	//Views.detailedInfo.render(creationModel);	//WORKS
         						//this.accounts.focusOnAccount(id);
         }
     });
@@ -110,7 +107,7 @@ $(function () {
         },
         /*info: function(e) {
             e.preventDefault();
-            //myRouter.navigate("/info/:id", {trigger: true} );
+            myRouter.navigate("/info/:id", {trigger: true} );
         },*/
         next: function(e) {
             e.preventDefault();
@@ -146,6 +143,7 @@ $(function () {
         clicked: function(e){
             e.preventDefault();
             //var accId = this.model.get("accountId");
+            //myRouter.navigate('/info/' + accId, {trigger:true});
             myRouter.navigate('/info/' + this.model.get("accountId"), {trigger:true});
         },
 /*****//*****/
@@ -171,7 +169,8 @@ $(function () {
         /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
     	/***/
-    		//baseUrl: 'employee/info/:id',
+    		/*baseUrl: 'employee/info/:id',*/
+    	baseUrl: 'employee/info/',
     	/***/
     	el: $("#employeeTemplate"),
         template: _.template($("#showinfotemplate").html()),
@@ -202,10 +201,20 @@ $(function () {
                toastr.success("Smth is happenning right now...") ;
                myRouter.navigate("", {trigger: true} );
        },
-       render: function(model) {
+       /*render: function(idid) {
+    	   var myId = idid;
+    	   console.log('DetailedInfo sees id as ' + myId);
+    	   var detailed = new Account ( {id:myId} );
+    	   console.log('detailed is   ' + detailed.get('id'));
+    	   //detailed.fetch();							///////////////////////////   WHY NOT WORKING CORRECTLY??????	////////////
+    	   return this.baseUrl + '?' + $.param({
+               id: this.accountId
+       });
+       }*/
+       render: function(model) {    	   
     	   $(this.el).html(this.template(model));
        }
-        });
+	});
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
