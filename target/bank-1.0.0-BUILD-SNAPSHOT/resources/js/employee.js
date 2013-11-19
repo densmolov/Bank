@@ -3,32 +3,22 @@ var accounts;
 var AllAccView;
 var AccView;
 
+/*****/
+	//var accId = null;
+/*****/
+
 
 var Account = Backbone.Model.extend({
+	
+		urlRoot : '/bank/employee/accounts'
 		
-    url:function() {
-    	return 'employee/info/' + this.model.get('accountId');	// or this.id=accountId
-        //return 'employee/info/' + this.id;
-        //return 'employee/info';
-    }
+		/*url : function() {
+		  var base = '/employee/accounts';
+		  return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.accountId;//this.id;
+		},*/
 
-	/*var User = Backbone.Model.extend({
-	url: function(){return 'api/user/id/' + this.id;}
-	});
-	var Users = Backbone.Collection.extend({
-	model: User,
-	url: function(){return 'api/users';},
-	initialize: function() {
-	}
-	});*/
 });
 
-
-        var creationModel =  {
-                        header: "",
-                        button: "",
-                        message: ""
-        };
 var header = [
     "Warning",
 ];
@@ -66,26 +56,36 @@ $(function () {
     
     var MyRouter = Backbone.Router.extend({
        routes: {
-           "": 'start',
-           "/info/:id": 'informMe'
+    	   "/accounts/:id": 'informMe',
+    	   "": 'start'
        },
         start: function() {
           closeModal();
           closeDetailedInfo();
         },
         informMe: function(id) {
-            closeDetailedInfo();
-            if(Views.detailedInfo!=null) {        //????????????????????
-                creationModel = {
-                    header: "info New",
-                    button: "info",
-                    message: "creating new"
-                };
-            Views.detailedInfo.render(creationModel);
-                                   // this.accounts.focusOnAccount(id);
-            }
+        	this.id = id;
+        	console.log('(inside of) MyRouter sees id as ' + id);
+        	//closeDetailedInfo();
+        	/************/
+        	Views.detailedInfo.render(id);
+        	/************/
+        						//this.accounts.focusOnAccount(id);
         }
     });
+    
+    /*function focusOnAccount(outsideInt) {
+        $.ajax({
+                type: "GET",
+                url: "/employee/accounts/{id}",
+                async: false,
+                success:function(intInt) {
+                	thisId = intInt;
+                    console.log(thisId);
+                }
+            }).responseText;
+        $("#formSpan2").html(employeeTemplate);
+    }*/
     
     var myRouter = new MyRouter();
     
@@ -94,16 +94,16 @@ $(function () {
     var Start = Backbone.View.extend({
         el: $(".content"),
         events: {
-            "click #info": "info",
+            //"click #info": "info",
             "click #next": "next",
             "click #previous": "previous",
             "click #first": "first",
             "click #last": "last"
         },
-        info: function(e) {
+        /*info: function(e) {
             e.preventDefault();
-            myRouter.navigate("/info/:id", {trigger: true} );
-        },
+            myRouter.navigate("/accounts/:id", {trigger: true} );
+        },*/
         next: function(e) {
             e.preventDefault();
             index++;
@@ -131,6 +131,17 @@ $(function () {
     AccView = Backbone.View.extend({
         tagName: 'tr',
         template: _.template($("#rowacc").html()),
+/*****//*****/
+        events: {
+            "click #info": "clicked"
+        },
+        clicked: function(e){
+            e.preventDefault();
+            //var accId = this.model.get("accountId");
+            //myRouter.navigate('/accounts/' + accId, {trigger:true});
+            myRouter.navigate('/accounts/' + this.model.get("accountId"), {trigger:true});
+        },
+/*****//*****/
         initialize: function(){
             _.bind(this.render, this);
         },
@@ -139,7 +150,9 @@ $(function () {
             console.log(this.model.toJSON());
             /***/
             	/***/
-            		console.log('1. ' + this.model.get('accountId') );	//console.log('2. ' + this.model.attributes);
+            		/***/
+            			console.log('1. ' + this.model.get('accountId') );
+            		/***/
             	/***/
             /***/
             $(this.el).html(element);
@@ -150,12 +163,29 @@ $(function () {
         
         /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
-      el: $("#template"),
+    	/***/
+    		//baseUrl: 'employee/info/:id',
+    	baseUrl: 'employee/accounts/',
+    	/***/
+    	el: $("#employeeTemplate"),
         template: _.template($("#showinfotemplate").html()),
         events: {
           "click .btn-success#change_status_btn": "accept",
           "click .btn-danger#cancel": "cancel"
       },
+      /***********/
+      /*initialize: function() {
+          // Update Model with Full details
+          var self = this;
+          this.model.fetch({
+              data: {post_id: self.model.get('id') },
+              processData: true,
+              success: function() {
+                  self.render();
+                  }
+              });
+      },*/
+      /*************/
        cancel: function(e) {
            e.preventDefault();
            toastr.warning("Closing with no changes") ;
@@ -164,13 +194,22 @@ $(function () {
        accept: function(e) {
                e.preventDefault();
                toastr.success("Smth is happenning right now...") ;
-               //buttonClick();////////////////////////////////////////////////////////////////////////////////////////
                myRouter.navigate("", {trigger: true} );
        },
-       render: function(model) {
-                       $(this.el).html(this.template(model));
+       render: function(idid) {
+    	   var myId = idid;
+    	   console.log('DetailedInfo sees id as ' + myId);
+    	   var detailed = new Account ( {id: myId} );
+    	   //var detailed = new Account ( {accountId :myId} );
+    	   console.log('detailed ID is   ' + detailed.get('id'));
+    	   detailed.fetch();					///////////////////////////   WHY NOT WORKING CORRECTLY??????	////////////
+    	   /*return this.baseUrl + '?' + $.param({
+               id: this.accountId});*/
        }
-        });
+       /*render: function(model) {
+    	   $(this.el).html(this.template(model));
+       }*/
+	});
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
@@ -196,7 +235,7 @@ $(function () {
         
     Views = {
             detailedInfo: new DetailedInfo(),
-        allAccView: new AllAccView()
+            allAccView: new AllAccView()
     };
         
     // handlers for elements which are not in .content

@@ -86,12 +86,13 @@
 </div>
 
 
-<div id="template"></div>
+<div id="employeeTemplate"></div>
 
 <script type="text/template" id="showinfotemplate">
     <div class="container" id="createshowinfo" title="Detailed account information">
 <form class="form-horizontal well">
 	<div>
+		<!--%=accountNumber%-->
 		Status : <span id="spanStatus">ACTIVE</span><br/>
 		Number : <span id="spanNumber">2620199011234</span><br/>
 		Owner full name : <span id="spanName">John Silver</span><br/>		
@@ -106,7 +107,7 @@
 			<td id="Amount">Amount of money</td>
 		</tr>
 		</thead>
-			<tr id="rowtrans">
+			<tr>
                 <td>2620199011234</td>
 				<td>2620288026789</td>
 				<td>Second, October 30, 2013 1:10:52 PM</td>
@@ -160,12 +161,20 @@
 </div>
 </script>
 
-<script id="rowacc" type="text/template">
+<script id="rowacc2" type="text/template">
     <td><%=user.userName %></td>
 	<td><%=accountNumber %></td>
 	<td><%=status %></td>
 	<td><a href="" title="Full info on this account" id="info">Details</a></td>
 </script>
+
+<script id="rowacc" type="text/template">
+	<td><%=user.userName %></td>
+	<td><%=accountNumber %></td>
+	<td><%=status %></td>
+	<td><a href="" title="Full info on this account" id="info">Details</a></td>
+</script>
+
 
 </body>
 

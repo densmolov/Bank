@@ -10,33 +10,13 @@ var TransView;
 
 var BankTransaction = Backbone.Model.extend({
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     url:function() {
         return '/bank/client/create';
     }
 
-
 });
 
 
-var creationModel = {
-    header: "",
-    button: "",
-    message: ""
-};
 var header = [
     "Warning",
     "Error"
@@ -93,21 +73,13 @@ $(function () {
         },
         create: function() {
             closeTransEditor();
-            if(Views.transEditor!=null) {
-                creationModel = {
-                    header: "Create New",
-                    button: "Create",
-                    message: "creating new"
-                };
-            Views.transEditor.render(creationModel);
-            }
+            Views.transEditor.render();
         }
     });
     
     var myRouter = new MyRouter();
     
     Backbone.history.start({pushState: true, root: "/bank/client"});
-    //Backbone.history.start();
     
     var Start = Backbone.View.extend({
         el: $(".content"),
@@ -169,7 +141,6 @@ $(function () {
         },
         render: function() {
             var element = this.template(this.model.toJSON());
-            console.log(this.model.toJSON());
             $(this.el).html(element);
             return this;
         }
@@ -202,6 +173,7 @@ $(function () {
                console.log(bankTransaction);
                bankTransaction.save();
                toastr.success("Transaction was successfully created!") ;
+               updatePaging();
                myRouter.navigate("", {trigger: true} );
                buttonClick();
             }
@@ -227,7 +199,7 @@ $(function () {
             this.$('#tableTransactions').append(view.render().el);
         },
         addAll : function() {
-            bankTransactions.each(this.addOne);
+        	bankTransactions.each(this.addOne);
         }
     });
     AllClientView = Backbone.View.extend({
@@ -245,7 +217,7 @@ $(function () {
             this.$('#userinfo').append(view.render().el);
         },
         addAll : function() {
-            bankTransactions.each(this.addOne);
+        	bankTransactions.each(this.addOne);
         }
     });
 
@@ -362,7 +334,6 @@ function updateSum() {
 }
 
 
-
 function scrollDown() {
     $('html, body').animate({scrollTop: $("#foot").offset().top}, 1);
 }
@@ -396,13 +367,6 @@ function closeTransEditor() {
 
 
 
-
-
-
-
-
-
-
 // VALIDATION
 
 function myValidation()
@@ -412,10 +376,4 @@ function myValidation()
             return true;
     }
 }
-
-
-
-
-
-
 
