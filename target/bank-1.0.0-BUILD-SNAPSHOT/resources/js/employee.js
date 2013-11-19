@@ -3,20 +3,10 @@ var accounts;
 var AllAccView;
 var AccView;
 
-/*****/
-	//var accId = null;
-/*****/
-
-
 var Account = Backbone.Model.extend({
 	
 		urlRoot : '/bank/employee/accounts'
-		
-		/*url : function() {
-		  var base = '/employee/accounts';
-		  return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.accountId;//this.id;
-		},*/
-
+			
 });
 
 var header = [
@@ -66,26 +56,9 @@ $(function () {
         informMe: function(id) {
         	this.id = id;
         	console.log('(inside of) MyRouter sees id as ' + id);
-        	//closeDetailedInfo();
-        	/************/
         	Views.detailedInfo.render(id);
-        	/************/
-        						//this.accounts.focusOnAccount(id);
         }
     });
-    
-    /*function focusOnAccount(outsideInt) {
-        $.ajax({
-                type: "GET",
-                url: "/employee/accounts/{id}",
-                async: false,
-                success:function(intInt) {
-                	thisId = intInt;
-                    console.log(thisId);
-                }
-            }).responseText;
-        $("#formSpan2").html(employeeTemplate);
-    }*/
     
     var myRouter = new MyRouter();
     
@@ -131,30 +104,21 @@ $(function () {
     AccView = Backbone.View.extend({
         tagName: 'tr',
         template: _.template($("#rowacc").html()),
-/*****//*****/
         events: {
             "click #info": "clicked"
         },
         clicked: function(e){
             e.preventDefault();
-            //var accId = this.model.get("accountId");
-            //myRouter.navigate('/accounts/' + accId, {trigger:true});
+            /*var accId = this.model.get("accountId");
+            myRouter.navigate('/accounts/' + accId, {trigger:true});*/
             myRouter.navigate('/accounts/' + this.model.get("accountId"), {trigger:true});
         },
-/*****//*****/
         initialize: function(){
             _.bind(this.render, this);
         },
         render: function() {
             var element = this.template(this.model.toJSON());
             console.log(this.model.toJSON());
-            /***/
-            	/***/
-            		/***/
-            			console.log('1. ' + this.model.get('accountId') );
-            		/***/
-            	/***/
-            /***/
             $(this.el).html(element);
             return this;
         }
@@ -163,10 +127,8 @@ $(function () {
         
         /*     DETAILED ACCOUNT INFORMATION     */
     var DetailedInfo = Backbone.View.extend({
-    	/***/
-    		//baseUrl: 'employee/info/:id',
+    	//baseUrl: 'employee/accounts/:id',
     	baseUrl: 'employee/accounts/',
-    	/***/
     	el: $("#employeeTemplate"),
         template: _.template($("#showinfotemplate").html()),
         events: {
@@ -196,16 +158,24 @@ $(function () {
                toastr.success("Smth is happenning right now...") ;
                myRouter.navigate("", {trigger: true} );
        },
-       render: function(idid) {
-    	   var myId = idid;
-    	   console.log('DetailedInfo sees id as ' + myId);
-    	   var detailed = new Account ( {id: myId} );
-    	   //var detailed = new Account ( {accountId :myId} );
-    	   console.log('detailed ID is   ' + detailed.get('id'));
-    	   detailed.fetch();					///////////////////////////   WHY NOT WORKING CORRECTLY??????	////////////
-    	   /*return this.baseUrl + '?' + $.param({
-               id: this.accountId});*/
+       render: function(id) {
+    	   console.log('DetailedInfo sees id as ' + id);
+    	   var detailedAccount = new Account ( {id: id} );
+    	   detailedAccount.fetch();
+    	   /**/
+    	   var element = this.template(detailedAccount.toJSON());
+           console.log(detailedAccount.toJSON());
+           $(this.el).html(element);
+           return this;
+    	   /**/
+	//$(this.el).html(this.template(detailedAccount));
        }
+       /*render: function() {
+           var element = this.template(this.model.toJSON());
+           console.log(this.model.toJSON());
+           $(this.el).html(element);
+           return this;
+       }*/
        /*render: function(model) {
     	   $(this.el).html(this.template(model));
        }*/
