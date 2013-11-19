@@ -51,7 +51,8 @@ public class AccountDAOImpl implements AccountDAO {
                     System.out.println("		Number : " + accounts.get(0).getAccountNumber());
                     System.out.println("		Owner full name : " + accounts.get(0).getUser().getUserName());
                     System.out.println("		Amount of money available : " + accounts.get(0).getMoneyLeft());
-                    Criteria criteria2 = session.createCriteria(Transaction.class).add( Restrictions.eq("sourceAccount", accounts.get(0).getAccountNumber()) );
+                    Criteria criteria2 = session.createCriteria(Transaction.class).add( Restrictions.eq("sourceAccount",
+                    																	accounts.get(0).getAccountNumber()) );
                     criteria2.addOrder(Order.desc("transactionId") );
                     criteria2.setMaxResults(5);
                     @SuppressWarnings("unchecked")

@@ -92,11 +92,10 @@
     <div class="container" id="createshowinfo" title="Detailed account information">
 <form class="form-horizontal well">
 	<div>
-		<!--%=accountNumber%-->
-		Status : <span id="spanStatus">ACTIVE</span><br/>
-		Number : <span id="spanNumber">2620199011234</span><br/>
-		Owner full name : <span id="spanName">John Silver</span><br/>		
-		Amount of money available : <span id="spanAmount">EURO 123.45</span><br/><br/>
+		Status : <span id="spanStatus">ACTIVE</span> <br/>
+		Number : <span id="spanNumber"> <!--%=accountNumber%--> </span><br/>
+		Owner full name : <span id="spanName">John Silver</span> <br/>		
+		Amount of money available : EURO &nbsp; <span id="spanAmount"> <!--%=moneyLeft%--> </span> <br/> <br/>
 	<div id="transListFrame">
 	<table class="table table-striped table-bordered" id="tableTransactions">
 		<thead>
@@ -151,7 +150,7 @@
                     <option value="unBlock">UNBLOCK</option>
 		</select>
 	</div> <!-- div id="transListFrame" -->
-		<br/><p id="commentButtons">*Promote (new - active)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Block (active - blocked)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unblock (blocked - active)</p>
+		<br/><p id="commentButtons">* Promote (new - active)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Block (active - blocked)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unblock (blocked - active)</p>
 
 		<a href="#" class="btn btn-success" id="change_status_btn">Change status</a>
 		<a href="#" class="btn btn-danger" id="cancel">Cancel</a>
@@ -161,20 +160,12 @@
 </div>
 </script>
 
-<script id="rowacc2" type="text/template">
+<script id="rowacc" type="text/template">
     <td><%=user.userName %></td>
 	<td><%=accountNumber %></td>
 	<td><%=status %></td>
 	<td><a href="" title="Full info on this account" id="info">Details</a></td>
 </script>
-
-<script id="rowacc" type="text/template">
-	<td><%=user.userName %></td>
-	<td><%=accountNumber %></td>
-	<td><%=status %></td>
-	<td><a href="" title="Full info on this account" id="info">Details</a></td>
-</script>
-
 
 </body>
 
