@@ -4,9 +4,7 @@ var AllAccView;
 var AccView;
 
 var Account = Backbone.Model.extend({
-	
-		urlRoot : '/bank/employee/accounts'
-			
+	urlRoot : '/bank/employee/accounts'			
 });
 
 var header = [
@@ -55,7 +53,6 @@ $(function () {
         },
         informMe: function(id) {
         	this.id = id;
-        	console.log('(inside of) MyRouter sees id as ' + id);
         	Views.detailedInfo.render(id);
         }
     });
@@ -109,8 +106,6 @@ $(function () {
         },
         clicked: function(e){
             e.preventDefault();
-            /*var accId = this.model.get("accountId");
-            myRouter.navigate('/accounts/' + accId, {trigger:true});*/
             myRouter.navigate('/accounts/' + this.model.get("accountId"), {trigger:true});
         },
         initialize: function(){
@@ -126,59 +121,36 @@ $(function () {
 
         
         /*     DETAILED ACCOUNT INFORMATION     */
-    var DetailedInfo = Backbone.View.extend({
-    	//baseUrl: 'employee/accounts/:id',
-    	baseUrl: 'employee/accounts/',
+	var DetailedInfo = Backbone.View.extend({
+		//baseUrl: 'employee/accounts/:id',
+		baseUrl: 'employee/accounts/',
     	el: $("#employeeTemplate"),
         template: _.template($("#showinfotemplate").html()),
         events: {
-          "click .btn-success#change_status_btn": "accept",
-          "click .btn-danger#cancel": "cancel"
-      },
-      /***********/
-      /*initialize: function() {
-          // Update Model with Full details
-          var self = this;
-          this.model.fetch({
-              data: {post_id: self.model.get('id') },
-              processData: true,
-              success: function() {
-                  self.render();
-                  }
-              });
-      },*/
-      /*************/
-       cancel: function(e) {
-           e.preventDefault();
-           toastr.warning("Closing with no changes") ;
-           myRouter.navigate("", {trigger: true} );
-       },
-       accept: function(e) {
-               e.preventDefault();
-               toastr.success("Smth is happenning right now...") ;
-               myRouter.navigate("", {trigger: true} );
-       },
-       render: function(id) {
-    	   console.log('DetailedInfo sees id as ' + id);
-    	   var detailedAccount = new Account ( {id: id} );
-    	   detailedAccount.fetch();
-    	   /**/
-    	   var element = this.template(detailedAccount.toJSON());
-           console.log(detailedAccount.toJSON());
-           $(this.el).html(element);
-           return this;
-    	   /**/
-	//$(this.el).html(this.template(detailedAccount));
-       }
-       /*render: function() {
-           var element = this.template(this.model.toJSON());
-           console.log(this.model.toJSON());
-           $(this.el).html(element);
-           return this;
-       }*/
-       /*render: function(model) {
-    	   $(this.el).html(this.template(model));
-       }*/
+        	"click .btn-success#change_status_btn": "accept",
+        	"click .btn-danger#cancel": "cancel"
+        },
+        cancel: function(e) {
+        	e.preventDefault();
+        	toastr.warning("Closing with no changes") ;
+        	myRouter.navigate("", {trigger: true} );
+        },
+        accept: function(e) {
+        	e.preventDefault();
+        	toastr.success("Smth is happenning right now...") ;
+        	myRouter.navigate("", {trigger: true} );
+        },
+        render: function(id) {
+        	var detailedAccount = new Account ( {id: id} );
+        	var that = this;
+        	detailedAccount.fetch({
+        		success:function(){
+        			var element = that.template(detailedAccount.toJSON());
+        			console.log(detailedAccount.toJSON());
+        			$(that.el).html(element);
+        		}
+        	});
+        }
 	});
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
@@ -277,7 +249,6 @@ function updatePaging() {
     $("#totalPages").html(totalPages);
     $("#accListFrame #tableAccounts tbody").html("");
 }
-
 
 
 function scrollDown() {
