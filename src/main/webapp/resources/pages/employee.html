@@ -109,18 +109,6 @@
 			<tr>
                 <td>2620199011234</td>
 				<td>2620288026789</td>
-				<td>Second, October 30, 2013 1:10:52 PM</td>
-				<td>1452.14</td>
-			</tr>
-			<tr>
-                <td>2620199011234</td>
-				<td>2620288026789</td>
-				<td>Second, October 30, 2013 1:10:52 PM</td>
-				<td>1452.14</td>
-			</tr>
-			<tr>
-                <td>2620199011234</td>
-				<td>2620288026789</td>
 				<td>Third, October 30, 2013 1:10:52 PM</td>
 				<td>1452.14</td>
 			</tr>
@@ -159,6 +147,14 @@
 </form>
 </div>
 </script>
+<script id="rowtrans" type="text/template">
+	<td><%=sourceAccount %></td>
+	<td><%=destinationAccount %></td>
+	<td><%=transactionDate %></td>
+	<td><%=amountMoney %></td>
+</script>
+
+
 
 <script id="rowacc" type="text/template">
     <td><%=user.userName %></td>

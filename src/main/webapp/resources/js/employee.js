@@ -1,5 +1,10 @@
 var Views = { };
 var accounts;
+/******************/
+	var bankTransactions;
+	var AllTransView;
+	var TransView;
+/******************/
 var AllAccView;
 var AccView;
 
@@ -33,13 +38,28 @@ var AccList = Backbone.Collection.extend({
     }
 });
 
+/*****************************/
+var TransList = Backbone.Collection.extend({
+	baseUrl: '/bank/employee/transactions',
+	//baseUrl: 'transactions',
+    initialize: function() {
+        _.bindAll(this, 'url');
+    },
+    url: function() {
+        return this.baseUrl;
+    }
+});
+/*****************************/
+
+
+
 
 /*        THE BEGINNING OF GREAT FUNCTION        */
 $(function () {
     updatePaging();
     Backbone.emulateJSON = false;
     accounts = new AccList();
-    //                            nameView : new NameView(),
+    //           nameView : new NameView(),
     
     
     var MyRouter = Backbone.Router.extend({
@@ -72,7 +92,9 @@ $(function () {
         },
         /*info: function(e) {
             e.preventDefault();
-            myRouter.navigate("/accounts/:id", {trigger: true} );
+            bankTransactions = new TransList();
+            allTransView: new AllTransView();
+            //myRouter.navigate("/accounts/:id", {trigger: true} );
         },*/
         next: function(e) {
             e.preventDefault();
@@ -148,10 +170,49 @@ $(function () {
         			var element = that.template(detailedAccount.toJSON());
         			console.log(detailedAccount.toJSON());
         			$(that.el).html(element);
+        					//bankTransactions = new TransList();
+        					//allTransView = new AllTransView();
         		}
         	});
-        }
+        	bankTransactions = new TransList();
+        	bankTransactions.fetch({
+        		success:function(){
+        			allTransView: new AllTransView();
+        		}
+        	});
+        }	/*render*/
 	});
+	TransView = Backbone.View.extend({
+        tagName: 'tr',
+        template: _.template($("#rowtrans").html()),
+        initialize: function(){
+            _.bind(this.render, this);
+        },
+        render: function() {
+            var element = this.template(this.model.toJSON());
+            console.log(this.model.toJSON());
+            $(this.el).html(element);
+            return this;
+        }
+    });
+	AllTransView = Backbone.View.extend({
+        el : $('#transListFrame'),
+        initialize : function() {
+            _.bindAll(this, 'addOne', 'addAll', 'render');
+            bankTransactions.bind('reset', this.addAll);
+            bankTransactions.bind('add', this.addOne);
+            bankTransactions.fetch();
+        },
+        addOne : function(bankTransaction) {
+            var view = new TransView({
+                model : bankTransaction
+            });
+            this.$('#tableTransactions').append(view.render().el);
+        },
+        addAll : function() {
+        	bankTransactions.each(this.addOne);
+        }
+    });
     /*     end DETAILED ACCOUNT INFORMATION ends     */
 
 
@@ -179,6 +240,8 @@ $(function () {
             detailedInfo: new DetailedInfo(),
             allAccView: new AllAccView()
     };
+
+
         
     // handlers for elements which are not in .content
     $("#buttonLogout").click(function (e) {
@@ -249,7 +312,6 @@ function updatePaging() {
     $("#totalPages").html(totalPages);
     $("#accListFrame #tableAccounts tbody").html("");
 }
-
 
 function scrollDown() {
     $('html, body').animate({scrollTop: $("#foot").offset().top}, 1);

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dsmolov.bank.entities.Account;
 import com.dsmolov.bank.entities.Transaction;
+import com.dsmolov.bank.entities.User;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -31,6 +32,33 @@ public class AccountDAOImpl implements AccountDAO {
 		List<Account> accounts = (List<Account>) criteria.list(); 
 		return accounts;
 	}
+	
+	@Override
+	public List<Transaction> getTransactions(String value) {
+            Session session = sessionFactory.getCurrentSession();
+            Criteria criteria = session.createCriteria(Transaction.class);
+            criteria.add( Restrictions.eq("sourceAccount", value) );
+            criteria.addOrder(Order.desc("transactionId") );
+            criteria.setMaxResults(5);
+            @SuppressWarnings("unchecked")
+			List<Transaction> trs = (List<Transaction>) criteria.list();
+            if (trs!=null && trs.size()!=0) {
+            	return trs;
+            }
+            return trs;
+    }
+	
+	@Override
+    public User getUserByLogin(String login) {
+            Session session = sessionFactory.getCurrentSession();
+            Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("login", login));
+            @SuppressWarnings("unchecked")
+            List<User> users = (List<User>) criteria.list();
+            if(users!=null && users.size()!=0) {
+                    return users.get(0);
+            }
+            return null;
+    }
 
 	@Override
 	@Transactional
